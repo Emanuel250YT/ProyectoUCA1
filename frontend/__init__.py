@@ -9,3 +9,5 @@ mainRoutes.setMainRoutes(app)
 
 def startFrontend():
     app.run(port=80, debug=True)
+
+# Skibidi papu estuvo aqui

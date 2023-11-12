@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.btn {
+    margin-bottom: 1vh;
+    font-size: 2vh;
+    margin-right: 1vh;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: left;
+    align-content: center;
+}
+
+@media (max-width: 767px) {
+    .col-3 {
+        width: 100%;
+    }
+}
+
+/* Skibidi papu estuvo aqui */

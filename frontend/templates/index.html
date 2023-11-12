@@ -13,21 +13,15 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
-    <style>
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-3">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Productos</h5>
                         <ul class="content">
@@ -47,7 +41,7 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Sucursales</h5>
                         <ul class="content">
@@ -68,7 +62,7 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Ventas</h5>
                         <ul class="content">
@@ -83,14 +77,16 @@
                             </li>
 
                         </ul>
-                        <a href="#" class="btn btn-primary">Ver todos</a>
-                        <a href="#" class="btn btn-outline-primary">Ver facturas</a>
+                        <div class="btnContainer">
+                            <a href="#" class="btn btn-primary">Ver todos</a>
+                            <a href="#" class="btn btn-outline-primary">Ver Facturas</a>
+                        </div>
 
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Gastos</h5>
                         <ul class="content">
@@ -105,15 +101,20 @@
                             </li>
 
                         </ul>
-                        <a href="#" class="btn btn-primary">Ver todos</a>
-                        <a href="#" class="btn btn-outline-primary">Ver Resumenes</a>
+                        <div class="btnContainer">
+                            <a href="#" class="btn btn-primary">Ver todos</a>
+                            <a href="#" class="btn btn-outline-primary">Ver Resumenes</a>
+                        </div>
+
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
+
+
+<!-- Skibidi papu estuvo aqui  -->
