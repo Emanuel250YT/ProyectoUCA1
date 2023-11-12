@@ -1,11 +1,10 @@
 from flask import Flask, render_template
+from . import mainRoutes
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+mainRoutes.setMainRoutes(app)
 
 
 def startFrontend():
