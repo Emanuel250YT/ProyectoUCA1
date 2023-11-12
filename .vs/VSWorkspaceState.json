@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\backend",
+    "\\frontend"
   ],
-  "SelectedNode": "\\__init__.py",
+  "SelectedNode": "\\frontend\\app.py",
   "PreviewInSolutionExplorer": false
 }
