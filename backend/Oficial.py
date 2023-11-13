@@ -23,6 +23,18 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, images):
         file.seek(0)
         json.dump(a, file, indent=4)
 
-createNewDB("BaseDatos") # Función PELIGROSISIMA (no ejecutar mas de una vez)
+def getProduct(db, product):
+    with open(str(db)+".json", 'r') as file:
+        load = json.load(file)
+        if product in load:
+            prodData = load[product]
+            return prodData
+    return None
 
-# addProduct("BaseDatos", 1, "c", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
+# createNewDB("BaseDatos") # Función PELIGROSISIMA (no ejecutar mas de una vez)
+
+# addProduct("BaseDatos", 1, "a", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
+
+# print(getProduct("BaseDatos", "a"))
+
+
