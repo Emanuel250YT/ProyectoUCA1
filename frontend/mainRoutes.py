@@ -9,5 +9,9 @@ def setMainRoutes(app=Flask):
     @app.route("/productos")
     def products():
         return render_template("productos.html")
+    
+    @app.route("/sucursales")
+    def sucursales():
+        return render_template("sucursales.html")
 
 # Skibidi papu estuvo aqui
