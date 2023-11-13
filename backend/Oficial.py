@@ -54,7 +54,7 @@ def deleteMultipleProducts(db, products):
         load = json.load(file)
     for product in products:
         try:
-            load["productos"].pop(product)
+            load.pop(product)
         except KeyError:
             print("No existe el elemento", product)
 
