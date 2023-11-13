@@ -28,7 +28,7 @@
                     <div class="col-3">
                         <label for="staticEmail2" class="visually-hidden">Email</label>
                         <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
-                            value="Buscar Producto por ID o nombre">
+                            value="Buscar Sucursal por ID o nombre">
                     </div>
                     <div class="col-auto">
                         <label for="id" class="visually-hidden">ID</label>
@@ -46,19 +46,19 @@
 
             <div class="col-12">
                 <hr>
-                <h2>Crear Producto</h2>
+                <h2>Crear Sucursal</h2>
                 <form action="" method="post">
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <label for="inputPassword6" class="col-form-label">Nombre</label>
                         </div>
                         <div class="col-auto">
-                            <input type="text" id="inputPassword6" class="form-control"
-                                aria-describedby="passwordHelpInline" name="nombre">
+                            <input type="text" id="inputPassword6" name="nombre" class="form-control"
+                                aria-describedby="passwordHelpInline">
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
-                                Escribe el nombre más adecuado para tu producto.
+                                Nombra tu sucursal
                             </span>
                         </div>
                     </div>
@@ -73,69 +73,27 @@
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
-                                Describe tu producto
+                                Describe tu sucursal
                             </span>
                         </div>
                     </div>
+
                     <br>
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Precio</label>
+                            <label for="inputPassword6" class="col-form-label">Productos</label>
                         </div>
                         <div class="col-auto">
-                            <input type="number" id="inputPassword6" name="price" class="form-control"
+                            <input type="text" id="inputPassword6" name="productos" class="form-control"
                                 aria-describedby="passwordHelpInline">
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
-                                Establece el mejor precio para tu producto.
+                                Un listado de productos separado por espacios (1 2 23 431)
                             </span>
                         </div>
                     </div>
-                    <br>
-                    <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Descuento</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="number" id="inputPassword6" name="descuento" class="form-control"
-                                aria-describedby="passwordHelpInline" max="100" min="0">
-                        </div>
-                        <div class="col-auto">
-                            <span id="passwordHelpInline" class="form-text">
-                                Establece un descuento en porcentaje.
-                            </span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Categoría</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" id="inputPassword6" class="form-control"
-                                aria-describedby="passwordHelpInline" name="categoria">
-                        </div>
-                        <div class="col-auto">
-                            <span id="passwordHelpInline" class="form-text">
-                                Escribe la categoría más adecuada para tu producto.
-                            </span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Agotado</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="checkbox" id="btncheck1" autocomplete="off" name="noStock">
-                        </div>
-                        <div class="col-auto">
-                            <span id="passwordHelpInline" class="form-text">
-                                El producto está agotado.
-                            </span>
-                        </div>
-                    </div>
+
                     <br>
                     <input type="submit" value="Crear" class="btn btn-primary">
                 </form>
@@ -144,54 +102,38 @@
 
             <div class="col-12">
                 <hr>
-                <h2>Tabla de Productos</h2>
+                <h2>Tabla de Sucursales</h2>
                 <br>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Categoría</th>
                             <th>Administrar</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Producto 1 -->
+                        <!-- Sucursal 1 -->
                         <tr>
                             <td>1</td>
-                            <td>Camiseta</td>
-                            <td>Camiseta de algodón de manga corta</td>
-                            <td>$20.99</td>
-                            <td>100</td>
-                            <td>Ropa</td>
+                            <td>Sucursal Principal</td>
                             <td><a href="/product/a" class="btn btn-primary">Editar</a></td>
 
                         </tr>
 
-                        <!-- Producto 2 -->
+                        <!-- Sucursal 2 -->
                         <tr>
                             <td>2</td>
-                            <td>Zapatos Deportivos</td>
-                            <td>Zapatos deportivos para correr</td>
-                            <td>$49.99</td>
-                            <td>50</td>
-                            <td>Calzado</td>
+                            <td>Sucursal Secundaria</td>
                             <td><a href="/product/a" class="btn btn-primary">Editar</a></td>
 
                         </tr>
 
-                        <!-- Producto 3 -->
+                        <!-- Sucursal 3 -->
                         <tr>
                             <td>3</td>
-                            <td>Mochila</td>
-                            <td>Mochila resistente al agua con múltiples compartimentos</td>
-                            <td>$35.50</td>
-                            <td>30</td>
-                            <td>Accesorios</td>
+                            <td>Sucursal de Outlet</td>
                             <td><a href="/product/a" class="btn btn-primary">Editar</a></td>
 
                         </tr>

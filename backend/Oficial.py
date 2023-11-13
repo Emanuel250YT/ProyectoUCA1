@@ -2,6 +2,7 @@
 import json
 import os
 
+
 def createNewDB(name):
     ''' Crea una nueva base de datos .JSON '''
     file_path = str(name) + ".json"
@@ -11,21 +12,24 @@ def createNewDB(name):
     with open(str(name)+".json", 'w') as file:
         json.dump({}, file)
 
-def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, images):
+
+def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, noStock):
     ''' Permite añadir un nuevo producto a la base de datos especificada'''
-    data = {"id" : id,  
-            "descripcion": desc, 
-            "precio": price, 
+    data = {"id": id,
+            "descripcion": desc,
+            "precio": price,
             "descuento": descuento,
-            "stock": stock, 
+            "stock": stock,
             "categoria": categ,
-            "imagenes": images} # Cargar dict o enlace a una imagen predefinida.
-    
+            # Cargar dict o enlace a una imagen predefinida.
+            "agotado": noStock}
+
     with open(str(nameDB)+".json", 'r+') as file:
         a = json.load(file)
         a[str(name)] = data
         file.seek(0)
         json.dump(a, file, indent=4)
+
 
 def getProduct(db, product):
     ''' Permite obtener el diccionario del producto desde la BD'''
@@ -36,12 +40,13 @@ def getProduct(db, product):
             return prodData
     return None
 
+
 def deleteProduct(db, product):
     ''' Permite eliminar un producto mediante su nombre '''
     with open(str(db)+".json", "r+") as file:
         load = json.load(file)
     try:
-        load.pop(product)
+        load.pop("c")
         
         with open(str(db)+".json", 'w') as file2:
             json.dump(load, file2, indent=4)
@@ -97,7 +102,5 @@ createNewDB("BaseDatos") # Ya no es peligrosa
 # deleteProduct("BaseDatos", "c")
 
 
-# print(getMultipleProducts(baseDatos, ["a", "b", "c"]))
-# print(getAttribute(baseDatos, "a" , "descripcion"))
 
 # print (getAllProducts(baseDatos))
