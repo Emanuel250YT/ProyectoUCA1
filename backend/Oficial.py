@@ -4,6 +4,10 @@ import os
 
 def createNewDB(name):
     ''' Crea una nueva base de datos .JSON '''
+    file_path = str(name) + ".json"
+    if os.path.isfile(file_path):
+        print(f"El archivo '{file_path}' ya existe.")
+        return
     with open(str(name)+".json", 'w') as file:
         json.dump({}, file)
 
@@ -37,19 +41,63 @@ def deleteProduct(db, product):
     with open(str(db)+".json", "r+") as file:
         load = json.load(file)
     try:
-        load.pop("c")
+        load.pop(product)
         
         with open(str(db)+".json", 'w') as file2:
             json.dump(load, file2, indent=4)
     except KeyError:
         print("No existe tal elemento!")
 
-# createNewDB("BaseDatos") # Función PELIGROSISIMA (no ejecutar mas de una vez)
+def deleteMultipleProducts(db, products):
+    ''' Permite eliminar varios productos pasandole un array de sus nombres '''
+    with open(str(db)+".json", "r+") as file:
+        load = json.load(file)
+    for product in products:
+        try:
+            load["productos"].pop(product)
+        except KeyError:
+            print("No existe el elemento", product)
 
-# addProduct("BaseDatos", 1, "a", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
+    with open(str(db)+".json", 'w') as file2:
+        json.dump(load, file2, indent=4)
+
+
+def getMultipleProducts(db, products):
+    ''' Permite buscar varios productos pasandole un array de sus nombres'''
+    with open(str(db)+".json", 'r') as file:
+        load = json.load(file)
+        productList = []
+        for product in products:
+            if product in load:
+                productList.append(load[product])
+        return productList
+
+def getAttribute(db, productName, attribute):
+    ''' Permite buscar atributos de un producto '''
+    product = getProduct(db, productName)
+    if product == None:
+        print("Ese producto no existe")
+        return
+    try:
+        return product[attribute]
+    except KeyError:
+        print("El producto", productName, "no tiene", attribute)
+
+
+
+baseDatos = "BaseDatos" 
+
+createNewDB("BaseDatos") # Ya no es peligrosa
+
+# addProduct("BaseDatos", 1, "Comoda", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
+# addProduct("BaseDatos", 2, "Mesa", "Mesa", 1799, None, 10, "Hogar", ["URL1", "URL2"])
 
 # print(getProduct("BaseDatos", "a"))
 
 # deleteProduct("BaseDatos", "c")
 
 
+# print(getMultipleProducts(baseDatos, ["a", "b", "c"]))
+# print(getAttribute(baseDatos, "a" , "descripcion"))
+
+# print (getAllProducts(baseDatos))

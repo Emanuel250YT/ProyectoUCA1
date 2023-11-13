@@ -1,0 +1,74 @@
+{
+    "a": {
+        "id": 1,
+        "descripcion": "Armario",
+        "precio": 1899,
+        "descuento": null,
+        "stock": 7,
+        "categoria": "Ropa",
+        "imagenes": [
+            "URL1",
+            "URL2"
+        ]
+    },
+    "b": {
+        "id": 2,
+        "descripcion": "Comoda",
+        "precio": 1399,
+        "descuento": null,
+        "stock": 10,
+        "categoria": "Ropa",
+        "imagenes": [
+            "URL1",
+            "URL2"
+        ]
+    },
+    "c": {
+        "id": 3,
+        "descripcion": "Mesa",
+        "precio": 1679,
+        "descuento": null,
+        "stock": 4,
+        "categoria": "Hogar",
+        "imagenes": [
+            "URL1",
+            "URL2"
+        ]
+    },
+    "d": {
+        "id": 4,
+        "descripcion": "Tele",
+        "precio": 9099,
+        "descuento": 50,
+        "stock": 1,
+        "categoria": "Hogar",
+        "imagenes": [
+            "URL1",
+            "URL2"
+        ]
+    },
+    "Comoda": {
+        "id": 1,
+        "descripcion": "Comoda",
+        "precio": 1399,
+        "descuento": null,
+        "stock": 10,
+        "categoria": "Ropa",
+        "imagenes": [
+            "URL1",
+            "URL2"
+        ]
+    },
+    "Mesa": {
+        "id": 2,
+        "descripcion": "Mesa",
+        "precio": 1799,
+        "descuento": null,
+        "stock": 10,
+        "categoria": "Hogar",
+        "imagenes": [
+            "URL1",
+            "URL2"
+        ]
+    }
+}
