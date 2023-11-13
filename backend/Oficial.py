@@ -24,6 +24,7 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, images):
         json.dump(a, file, indent=4)
 
 def getProduct(db, product):
+    ''' Permite obtener el diccionario del producto desde la BD'''
     with open(str(db)+".json", 'r') as file:
         load = json.load(file)
         if product in load:
@@ -31,10 +32,24 @@ def getProduct(db, product):
             return prodData
     return None
 
+def deleteProduct(db, product):
+    ''' Permite eliminar un producto mediante su nombre '''
+    with open(str(db)+".json", "r+") as file:
+        load = json.load(file)
+    try:
+        load.pop("c")
+        
+        with open(str(db)+".json", 'w') as file2:
+            json.dump(load, file2, indent=4)
+    except KeyError:
+        print("No existe tal elemento!")
+
 # createNewDB("BaseDatos") # Función PELIGROSISIMA (no ejecutar mas de una vez)
 
 # addProduct("BaseDatos", 1, "a", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
 
 # print(getProduct("BaseDatos", "a"))
+
+# deleteProduct("BaseDatos", "c")
 
 
