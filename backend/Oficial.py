@@ -35,6 +35,10 @@ def getProduct(db, product):
     ''' Permite obtener el diccionario del producto desde la BD'''
     with open(str(db)+".json", 'r') as file:
         load = json.load(file)
+        if type(product) == int:
+            for key in load:
+                if(load[key]["id"] == product):
+                    return load[key] # Falta hacerlo más pro
         if product in load:
             prodData = load[product]
             return prodData
@@ -106,10 +110,10 @@ baseDatos = "BaseDatos"
 # addProduct("BaseDatos", 1, "Comoda", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
 # addProduct("BaseDatos", 2, "Mesa", "Mesa", 1799, None, 10, "Hogar", ["URL1", "URL2"])
 
-# print(getProduct("BaseDatos", "a"))
+print(getProduct("BaseDatos", 2))
 
 # deleteProduct("BaseDatos", "c")
 
 
 
-print (getAllProducts(baseDatos))
+# print (getAllProducts(baseDatos))
