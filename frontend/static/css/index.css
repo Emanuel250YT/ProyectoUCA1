@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 5vh 2vh;
 }
 
 .btn {
@@ -16,6 +17,8 @@
     justify-content: left;
     align-content: center;
 }
+
+
 
 @media (max-width: 767px) {
     .col-3 {
