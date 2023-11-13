@@ -46,7 +46,7 @@ def deleteProduct(db, product):
     with open(str(db)+".json", "r+") as file:
         load = json.load(file)
     try:
-        load.pop("c")
+        load.pop(product)
         
         with open(str(db)+".json", 'w') as file2:
             json.dump(load, file2, indent=4)
@@ -88,11 +88,20 @@ def getAttribute(db, productName, attribute):
     except KeyError:
         print("El producto", productName, "no tiene", attribute)
 
+def getAllProducts(db):
+    ''' Devuelve todos los productos '''
+    with open(str(db)+".json", 'r') as file:
+        load = json.load(file)
+        productList = []
+        for product in load:
+            load[product]["nombre"] = product # Agrega el nombre
+            productList.append(load[product])
+        return productList
 
 
 baseDatos = "BaseDatos" 
 
-createNewDB("BaseDatos") # Ya no es peligrosa
+# createNewDB("BaseDatos") # Ya no es peligrosa
 
 # addProduct("BaseDatos", 1, "Comoda", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
 # addProduct("BaseDatos", 2, "Mesa", "Mesa", 1799, None, 10, "Hogar", ["URL1", "URL2"])
@@ -103,4 +112,4 @@ createNewDB("BaseDatos") # Ya no es peligrosa
 
 
 
-# print (getAllProducts(baseDatos))
+print (getAllProducts(baseDatos))
