@@ -6,10 +6,7 @@
         "descuento": null,
         "stock": 7,
         "categoria": "Ropa",
-        "imagenes": [
-            "URL1",
-            "URL2"
-        ]
+        "costo": 100
     },
     "b": {
         "id": 2,
@@ -18,10 +15,7 @@
         "descuento": null,
         "stock": 10,
         "categoria": "Ropa",
-        "imagenes": [
-            "URL1",
-            "URL2"
-        ]
+        "costo": 100
     },
     "c": {
         "id": 3,
@@ -30,10 +24,7 @@
         "descuento": null,
         "stock": 4,
         "categoria": "Hogar",
-        "imagenes": [
-            "URL1",
-            "URL2"
-        ]
+        "costo": 100
     },
     "d": {
         "id": 4,
@@ -42,10 +33,7 @@
         "descuento": 50,
         "stock": 1,
         "categoria": "Hogar",
-        "imagenes": [
-            "URL1",
-            "URL2"
-        ]
+        "costo": 100
     },
     "Comoda": {
         "id": 1,
@@ -54,10 +42,7 @@
         "descuento": null,
         "stock": 10,
         "categoria": "Ropa",
-        "imagenes": [
-            "URL1",
-            "URL2"
-        ]
+        "costo": 100
     },
     "Mesa": {
         "id": 2,
@@ -66,9 +51,6 @@
         "descuento": null,
         "stock": 10,
         "categoria": "Hogar",
-        "imagenes": [
-            "URL1",
-            "URL2"
-        ]
+        "costo": 100
     }
 }

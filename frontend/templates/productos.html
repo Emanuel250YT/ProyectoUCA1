@@ -95,6 +95,21 @@
                     <br>
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
+                            <label for="inputPassword6" class="col-form-label">Costo</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="number" id="inputPassword6" name="costo" class="form-control"
+                                aria-describedby="passwordHelpInline">
+                        </div>
+                        <div class="col-auto">
+                            <span id="passwordHelpInline" class="form-text">
+                                Establece el costo para tu producto.
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
                             <label for="inputPassword6" class="col-form-label">Descuento</label>
                         </div>
                         <div class="col-auto">
@@ -125,14 +140,15 @@
                     <br>
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Agotado</label>
+                            <label for="inputPassword6" class="col-form-label">Stock</label>
                         </div>
                         <div class="col-auto">
-                            <input type="checkbox" id="btncheck1" autocomplete="off" name="noStock">
+                            <input type="number" id="inputPassword6" class="form-control"
+                                aria-describedby="passwordHelpInline" name="stock" min="0">
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
-                                El producto está agotado.
+                                Stock del producto
                             </span>
                         </div>
                     </div>
