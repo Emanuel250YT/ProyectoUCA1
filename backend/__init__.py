@@ -1,6 +1,5 @@
 ''' Archivo main para gestión de productos '''
 import json
-import os
 
 
 def createNewDB(name):
