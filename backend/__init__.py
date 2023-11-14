@@ -33,8 +33,7 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
         a = {}
 
     if id in a:
-        raise ValueError(f'El producto con la id  "{
-                         id}" ya existe en la base de datos.')
+        raise ValueError(f'El producto con la id  "{id}" ya existe en la base de datos.')
 
     a[id] = data
 
@@ -49,8 +48,6 @@ def getProduct(db, product):
         try:
             if (load[product]):
                 return load[product]
-            else:
-                return None
         except:
             return None
 
@@ -121,10 +118,24 @@ def getAllProducts(db):
             productList.append(load[product])
         return productList
 
+def editProduct(db, id, object):
+    ''' Permite editar productos, pasandole la id y un Object con las propiedades a modificar'''
+    with open(str(db)+".json", "r") as file:
+        load = json.load(file)
+    originalProduct = load[id]
+    try:
+        for key in object:
+            originalProduct[key] = object[key]
+        load[id] = originalProduct
+        with open(str(db)+".json", 'w') as file2:
+            json.dump(load, file2, indent=4)
+    except TypeError:
+        print("Ese producto no existe!")
+    
 
 baseDatos = "BaseDatos"
 
-# createNewDB("BaseDatos") # Ya no es peligrosa
+# createNewDB("Sucursales") # Ya no es peligrosa
 
 # addProduct("BaseDatos", 1, "Comoda", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
 # addProduct("BaseDatos", 2, "Mesa", "Mesa", 1799, None, 10, "Hogar", ["URL1", "URL2"])
@@ -135,3 +146,4 @@ baseDatos = "BaseDatos"
 
 
 # print (getAllProducts(baseDatos))
+# editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
