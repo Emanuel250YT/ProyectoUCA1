@@ -167,6 +167,21 @@ def editarSucursal(nameDB, id, detalles):
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
+def eliminarSucursal(nameDB, id):
+    id = str(id)
+    try:
+        with open(str(nameDB) + ".json", 'r') as file:
+            load = json.load(file)
+    except (json.decoder.JSONDecodeError, FileNotFoundError):
+        print("La base", nameDB, "no existe.")
+        return None
+    if not(id in load):
+        print("El producto", id, "no existe")
+    load.pop(id)
+
+    with open(str(nameDB) + ".json", 'w') as file2:
+        json.dump(load, file2, indent=4)
+
 
 
 
@@ -188,5 +203,6 @@ sucursales = "Sucursales"
 # print (getAllProducts(baseDatos))
 # editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
 
-crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
-editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
+# crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
+# editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
+# eliminarSucursal(sucursales, 1)
