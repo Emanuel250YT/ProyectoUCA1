@@ -131,6 +131,24 @@ def editProduct(db, id, object):
             json.dump(load, file2, indent=4)
     except TypeError:
         print("Ese producto no existe!")
+
+def crearSucursal(nameDB, id, detalles): # Voy a dejar de pedir db, directamente lo hace en la de sucursales
+    try:
+        with open(str(nameDB) + ".json", 'r') as file:
+            load = json.load(file)
+    except (json.decoder.JSONDecodeError, FileNotFoundError):
+        load = {}
+    
+    if str(id) in load:
+        return None
+    data = detalles
+    data["id"] = id
+
+    load[str(id)] = data
+    with open(str(nameDB) + ".json", 'w') as file2:
+        json.dump(load, file2, indent=4)
+
+
     
 
 baseDatos = "BaseDatos"
@@ -147,3 +165,5 @@ baseDatos = "BaseDatos"
 
 # print (getAllProducts(baseDatos))
 # editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
+
+crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
