@@ -168,6 +168,7 @@ def editarSucursal(nameDB, id, detalles):
         json.dump(load, file2, indent=4)
 
 def eliminarSucursal(nameDB, id):
+    ''' Permite eliminar una sucursal con su id '''
     id = str(id)
     try:
         with open(str(nameDB) + ".json", 'r') as file:
@@ -182,15 +183,29 @@ def eliminarSucursal(nameDB, id):
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
-def getNextID(nameDB):
+def getNextID(allIDs):
+    ''' Obtiene la proxima id disponible en una lista de ids, buscando si hay huecos'''
+    try:
+        nextID = min(set(range(1, max(allIDs) + 2)) - allIDs)
+        return nextID
+    except ValueError:
+        return 0
+
+def nuevaVenta(nameDB, id, detalles):
+    ''' Crea una nueva venta para la sucursal con la id propocionada '''
+    id = str(id)
     with open(str(nameDB) + ".json", 'r') as file:
             load = json.load(file)
-    allIDs = set(map(int, load.keys()))
-    nextID = min(set(range(1, max(allIDs) + 2)) - allIDs)
-    print(nextID)
-
-
-    
+    if not(id in load):
+        print("No se encontró el item", id)
+        return None
+    if not("ventas" in load[id]): # Si no hay categoría ventas, crear una
+        load[id]["ventas"] = {}
+    nextID = getNextID(set(map(int, load[id]["ventas"].keys()))) # Obtiene la proxima ID disponible
+    detalles["id"] = nextID
+    load[id]["ventas"][str(nextID)] = detalles
+    with open(str(nameDB) + ".json", 'w') as file2:
+        json.dump(load, file2, indent=4)
 
 baseDatos = "BaseDatos"
 sucursales = "Sucursales"
@@ -209,7 +224,8 @@ sucursales = "Sucursales"
 # print (getAllProducts(baseDatos))
 # editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
 
-getNextID(baseDatos)
+# getNextID(baseDatos)
+# nuevaVenta(sucursales, 1, {"Producto": "Computadoras", "Cantidad": 1})
 # crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
 # editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
 # eliminarSucursal(sucursales, 1)

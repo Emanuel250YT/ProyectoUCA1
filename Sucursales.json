@@ -6,6 +6,23 @@
         "Productos": [
             "Libros",
             "Computadoras"
-        ]
+        ],
+        "ventas": {
+            "0": {
+                "Producto": "Libros",
+                "Cantidad": 3,
+                "id": 0
+            },
+            "1": {
+                "Producto": "Libros",
+                "Cantidad": 3,
+                "id": 1
+            },
+            "2": {
+                "Producto": "Computadoras",
+                "Cantidad": 1,
+                "id": 2
+            }
+        }
     }
 }
