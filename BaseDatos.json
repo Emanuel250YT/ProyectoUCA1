@@ -19,16 +19,6 @@
         "nombre": "emanuel gay",
         "costo": 1
     },
-    "2": {
-        "id": 2,
-        "descripcion": "dasd",
-        "precio": 10,
-        "descuento": 0,
-        "stock": 2,
-        "categoria": "Ropa",
-        "nombre": "b",
-        "costo": 2
-    },
     "3": {
         "id": 3,
         "descripcion": "a",

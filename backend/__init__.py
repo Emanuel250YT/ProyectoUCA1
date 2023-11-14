@@ -182,7 +182,12 @@ def eliminarSucursal(nameDB, id):
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
-
+def getNextID(nameDB):
+    with open(str(nameDB) + ".json", 'r') as file:
+            load = json.load(file)
+    allIDs = set(map(int, load.keys()))
+    nextID = min(set(range(1, max(allIDs) + 2)) - allIDs)
+    print(nextID)
 
 
     
@@ -199,10 +204,12 @@ sucursales = "Sucursales"
 
 # deleteProduct("BaseDatos", "c")
 
+# print(getMultipleProducts(baseDatos, [1, 2, 3]))
 
 # print (getAllProducts(baseDatos))
 # editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
 
+getNextID(baseDatos)
 # crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
 # editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
 # eliminarSucursal(sucursales, 1)
