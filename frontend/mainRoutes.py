@@ -47,6 +47,11 @@ def setMainRoutes(app=Flask):
     def sucursales():
         data = getData(None, None)
         return render_template("sucursales.html", data=data)
+    
+    @app.route("/ventas")
+    def ventas():
+        data = getData(None, None)
+        return render_template("ventas.html", data=data)
 
 
 def getData(byId, byName):
