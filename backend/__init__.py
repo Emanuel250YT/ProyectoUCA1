@@ -16,7 +16,7 @@ def createNewDB(name):
 def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
     ''' Permite añadir un nuevo producto a la base de datos especificada'''
     data = {
-        "id": id,
+        "id": int(id),
         "descripcion": desc,
         "precio": price,
         "descuento": descuento,
@@ -33,7 +33,7 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
         a = {}
 
     if id in a:
-        raise ValueError(f'El producto con la id  "{id}" ya existe en la base de datos.')
+        return None
 
     a[id] = data
 

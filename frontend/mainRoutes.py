@@ -14,8 +14,8 @@ def setMainRoutes(app=Flask):
         byId = request.args.get("id")
         byName = request.args.get("name")
         data = getData(byId, byName)
-        newID = int(max(data["products"], key=lambda x: x['id'])["id"]) + 1
         if (request.form):
+            newID = int(max(data["products"], key=lambda x: x['id'])["id"]) + 1
             addProduct(nameDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
             return redirect("/producto/"+str(newID))
@@ -45,7 +45,7 @@ def setMainRoutes(app=Flask):
 
     @app.route("/sucursales")
     def sucursales():
-        data = getData()
+        data = getData(None, None)
         return render_template("sucursales.html", data=data)
 
 
