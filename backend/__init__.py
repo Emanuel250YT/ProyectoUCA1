@@ -33,8 +33,7 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
         a = {}
 
     if id in a:
-        raise ValueError(f'El producto con la id  "{
-                         id}" ya existe en la base de datos.')
+        return None
 
     a[id] = data
 
