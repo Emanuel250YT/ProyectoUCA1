@@ -132,7 +132,8 @@ def editProduct(db, id, object):
     except TypeError:
         print("Ese producto no existe!")
 
-def crearSucursal(nameDB, id, detalles): # Voy a dejar de pedir db, directamente lo hace en la de sucursales
+def crearSucursal(nameDB, id, detalles):
+    ''' Permite crear sucursales, pasandole una id y un object con los atributos que tendrá la sucursal'''
     try:
         with open(str(nameDB) + ".json", 'r') as file:
             load = json.load(file)
@@ -148,10 +149,31 @@ def crearSucursal(nameDB, id, detalles): # Voy a dejar de pedir db, directamente
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
+def editarSucursal(nameDB, id, detalles):
+    ''' Permite editar una sucursal, pasandole la id y un object de los atributos a modificar'''
+    id = str(id)
+    try:
+        with open(str(nameDB) + ".json", 'r') as file:
+            load = json.load(file)
+    except (json.decoder.JSONDecodeError, FileNotFoundError):
+        print("La base", nameDB, "no existe.")
+        return None
+    if not(id in load):
+        print("No se encontró el item con la id", id)
+        return None
+    for key in detalles:
+        load[id][key] = detalles[key]
+
+    with open(str(nameDB) + ".json", 'w') as file2:
+        json.dump(load, file2, indent=4)
+
+
+
 
     
 
 baseDatos = "BaseDatos"
+sucursales = "Sucursales"
 
 # createNewDB("Sucursales") # Ya no es peligrosa
 
@@ -167,3 +189,4 @@ baseDatos = "BaseDatos"
 # editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
 
 crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
+editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
