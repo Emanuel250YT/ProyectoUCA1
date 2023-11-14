@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .factura {
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .encabezado {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cliente,
+        .productos {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .productos table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .productos th,
+        .productos td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Factura</title>
+</head>
+
+<body>
+
+    <div class="factura">
+        <div class="encabezado">
+            <h1>Factura</h1>
+            <p>Fecha: 10 de noviembre de 2023</p>
+        </div>
+
+        <div class="cliente">
+            <h2>Cliente:</h2>
+            <p>Nombre: Juan Pérez</p>
+            <p>Dirección: Calle Principal 123, Ciudad Ejemplo</p>
+            <p>Email: juan@example.com</p>
+        </div>
+
+        <div class="productos">
+            <h2>Productos:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Camiseta</td>
+                        <td>2</td>
+                        <td>$20.99</td>
+                        <td>$41.98</td>
+                    </tr>
+                    <tr>
+                        <td>Zapatos Deportivos</td>
+                        <td>1</td>
+                        <td>$49.99</td>
+                        <td>$49.99</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total">
+            <p>Total: $91.97</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

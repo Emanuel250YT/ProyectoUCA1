@@ -1,6 +1,7 @@
 ''' Archivo main para gestión de productos '''
 import json
 import os
+from flask import render_template_string
 
 
 def createNewDB(name):
@@ -118,6 +119,7 @@ def getAllProducts(db):
             productList.append(load[product])
         return productList
 
+
 def editProduct(db, id, object):
     ''' Permite editar productos, pasandole la id y un Object con las propiedades a modificar'''
     with open(str(db)+".json", "r") as file:
@@ -132,6 +134,7 @@ def editProduct(db, id, object):
     except TypeError:
         print("Ese producto no existe!")
 
+
 def crearSucursal(nameDB, id, detalles):
     ''' Permite crear sucursales, pasandole una id y un object con los atributos que tendrá la sucursal'''
     try:
@@ -139,7 +142,7 @@ def crearSucursal(nameDB, id, detalles):
             load = json.load(file)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         load = {}
-    
+
     if str(id) in load:
         return None
     data = detalles
@@ -148,6 +151,7 @@ def crearSucursal(nameDB, id, detalles):
     load[str(id)] = data
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
+
 
 def editarSucursal(nameDB, id, detalles):
     ''' Permite editar una sucursal, pasandole la id y un object de los atributos a modificar'''
@@ -158,7 +162,7 @@ def editarSucursal(nameDB, id, detalles):
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         print("La base", nameDB, "no existe.")
         return None
-    if not(id in load):
+    if not (id in load):
         print("No se encontró el item con la id", id)
         return None
     for key in detalles:
@@ -166,6 +170,7 @@ def editarSucursal(nameDB, id, detalles):
 
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
+
 
 def eliminarSucursal(nameDB, id):
     id = str(id)
@@ -175,17 +180,12 @@ def eliminarSucursal(nameDB, id):
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         print("La base", nameDB, "no existe.")
         return None
-    if not(id in load):
+    if not (id in load):
         print("El producto", id, "no existe")
     load.pop(id)
 
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
-
-
-
-
-    
 
 baseDatos = "BaseDatos"
 sucursales = "Sucursales"

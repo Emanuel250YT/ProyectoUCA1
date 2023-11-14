@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from backend import *
-from operator import itemgetter, attrgetter
+import pdfkit
 
 
 def setMainRoutes(app=Flask):
@@ -47,10 +47,20 @@ def setMainRoutes(app=Flask):
     def sucursales():
         data = getData(None, None)
         return render_template("sucursales.html", data=data)
-    
+
     @app.route("/ventas")
     def ventas():
         data = getData(None, None)
+        return render_template("ventas.html", data=data)
+
+    @app.route("/venta/<id>")
+    def venta(id):
+        data = getData(None, None)
+        with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
+            content = file.read()
+            render = render_template_string(content)
+            pdfkit.from_string(content, "frontend/static/facturas/factura-"+id+".pdf")
+
         return render_template("ventas.html", data=data)
 
 
