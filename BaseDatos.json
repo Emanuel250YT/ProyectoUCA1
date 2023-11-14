@@ -1,38 +1,22 @@
 {
-    "a": {
-        "id": 1,
-        "descripcion": "Armario",
-        "precio": 1899,
-        "descuento": null,
-        "stock": 0,
-        "categoria": "Ropa",
-        "costo": 100
+    "0": {
+        "id": "0",
+        "descripcion": "dasd",
+        "precio": 2,
+        "descuento": 0,
+        "stock": 123,
+        "categoria": "EASDDD",
+        "nombre": "bsdada",
+        "costo": 1
     },
-    "b": {
-        "id": 2,
-        "descripcion": "Comoda",
-        "precio": 1399,
-        "descuento": null,
-        "stock": 10,
-        "categoria": "Ropa",
-        "costo": 100
-    },
-    "c": {
-        "id": 3,
-        "descripcion": "Mesa",
-        "precio": 1679,
-        "descuento": null,
-        "stock": 4,
-        "categoria": "Hogar",
-        "costo": 100
-    },
-    "d": {
-        "id": 4,
-        "descripcion": "Tele",
-        "precio": 9099,
-        "descuento": 50,
-        "stock": 1,
-        "categoria": "Hogar",
-        "costo": 100
+    "1": {
+        "id": "1",
+        "descripcion": "dasd",
+        "precio": 2,
+        "descuento": 0,
+        "stock": 123,
+        "categoria": "EASDDD",
+        "nombre": "bsdada",
+        "costo": 1
     }
 }

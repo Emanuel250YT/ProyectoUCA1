@@ -13,21 +13,32 @@ def createNewDB(name):
         json.dump({}, file)
 
 
-def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, noStock):
+def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
     ''' Permite añadir un nuevo producto a la base de datos especificada'''
-    data = {"id": id,
-            "descripcion": desc,
-            "precio": price,
-            "descuento": descuento,
-            "stock": stock,
-            "categoria": categ,
-            # Cargar dict o enlace a una imagen predefinida.
-            "agotado": noStock}
+    data = {
+        "id": id,
+        "descripcion": desc,
+        "precio": price,
+        "descuento": descuento,
+        "stock": stock,
+        "categoria": categ,
+        "nombre": name,
+        "costo": costo
+    }
 
-    with open(str(nameDB)+".json", 'r+') as file:
-        a = json.load(file)
-        a[str(name)] = data
-        file.seek(0)
+    try:
+        with open(str(nameDB) + ".json", 'r') as file:
+            a = json.load(file)
+    except (json.decoder.JSONDecodeError, FileNotFoundError):
+        a = {}
+
+    if id in a:
+        raise ValueError(f'El producto con la id  "{
+                         id}" ya existe en la base de datos.')
+
+    a[id] = data
+
+    with open(str(nameDB) + ".json", 'w') as file:
         json.dump(a, file, indent=4)
 
 
@@ -35,14 +46,13 @@ def getProduct(db, product):
     ''' Permite obtener el diccionario del producto desde la BD'''
     with open(str(db)+".json", 'r') as file:
         load = json.load(file)
-        if type(product) == int:
-            for key in load:
-                if (load[key]["id"] == product):
-                    return load[key]  # Falta hacerlo más pro
-        if product in load:
-            prodData = load[product]
-            return prodData
-    return None
+        try:
+            if (load[product]):
+                return load[product]
+            else:
+                return None
+        except:
+            return None
 
 
 def deleteProduct(db, product):
@@ -81,7 +91,6 @@ def getMultipleProducts(db, products):
             for productDB in load:
                 tempProduct = load[productDB]
                 tempProduct["nombre"] = productDB
-                print(tempProduct["id"])
                 if (str(tempProduct["id"]) == str(product)):
                     productList.append(tempProduct)
                 elif (tempProduct["nombre"] == product):
@@ -107,8 +116,8 @@ def getAllProducts(db):
     with open(str(db)+".json", 'r') as file:
         load = json.load(file)
         productList = []
+
         for product in load:
-            load[product]["nombre"] = product  # Agrega el nombre
             productList.append(load[product])
         return productList
 
