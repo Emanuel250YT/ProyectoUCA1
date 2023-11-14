@@ -4,7 +4,7 @@
         "descripcion": "Armario",
         "precio": 1899,
         "descuento": null,
-        "stock": 7,
+        "stock": 0,
         "categoria": "Ropa",
         "costo": 100
     },
@@ -32,24 +32,6 @@
         "precio": 9099,
         "descuento": 50,
         "stock": 1,
-        "categoria": "Hogar",
-        "costo": 100
-    },
-    "Comoda": {
-        "id": 1,
-        "descripcion": "Comoda",
-        "precio": 1399,
-        "descuento": null,
-        "stock": 10,
-        "categoria": "Ropa",
-        "costo": 100
-    },
-    "Mesa": {
-        "id": 2,
-        "descripcion": "Mesa",
-        "precio": 1799,
-        "descuento": null,
-        "stock": 10,
         "categoria": "Hogar",
         "costo": 100
     }

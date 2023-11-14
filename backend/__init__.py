@@ -78,8 +78,15 @@ def getMultipleProducts(db, products):
         load = json.load(file)
         productList = []
         for product in products:
-            if product in load:
-                productList.append(load[product])
+            for productDB in load:
+                tempProduct = load[productDB]
+                tempProduct["nombre"] = productDB
+                print(tempProduct["id"])
+                if (str(tempProduct["id"]) == str(product)):
+                    productList.append(tempProduct)
+                elif (tempProduct["nombre"] == product):
+                    productList.append(tempProduct)
+
         return productList
 
 

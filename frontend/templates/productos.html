@@ -41,6 +41,9 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Buscar</button>
                     </div>
+                    <div class="col-auto">
+                        <a href="/productos" class="btn btn-primary">Ver todos</a>
+                    </div>
                 </form>
             </div>
 
@@ -170,47 +173,28 @@
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Stock</th>
+                            <th>Descuento</th>
                             <th>Categoría</th>
                             <th>Administrar</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Producto 1 -->
+
+
+                        {% for elemento in data["products"] %}
                         <tr>
-                            <td>1</td>
-                            <td>Camiseta</td>
-                            <td>Camiseta de algodón de manga corta</td>
-                            <td>$20.99</td>
-                            <td>100</td>
-                            <td>Ropa</td>
-                            <td><a href="/product/a" class="btn btn-primary">Editar</a></td>
-
+                            <td>{{ elemento.id }}</td>
+                            <td>{{ elemento.nombre }}</td>
+                            <td>{{ elemento.descripcion }}</td>
+                            <td>${{ elemento.precio }} USD</td>
+                            <td>{{ elemento.stock }}</td>
+                            <td>{{ elemento.descuento }}</td>
+                            <td>{{ elemento.categoria }}</td>
+                            <td><a href="/product/{{elemento.id}}" class="btn btn-primary">Editar</a></td>
                         </tr>
+                        {% endfor %}
 
-                        <!-- Producto 2 -->
-                        <tr>
-                            <td>2</td>
-                            <td>Zapatos Deportivos</td>
-                            <td>Zapatos deportivos para correr</td>
-                            <td>$49.99</td>
-                            <td>50</td>
-                            <td>Calzado</td>
-                            <td><a href="/product/a" class="btn btn-primary">Editar</a></td>
-
-                        </tr>
-
-                        <!-- Producto 3 -->
-                        <tr>
-                            <td>3</td>
-                            <td>Mochila</td>
-                            <td>Mochila resistente al agua con múltiples compartimentos</td>
-                            <td>$35.50</td>
-                            <td>30</td>
-                            <td>Accesorios</td>
-                            <td><a href="/product/a" class="btn btn-primary">Editar</a></td>
-
-                        </tr>
                     </tbody>
                 </table>
             </div>
