@@ -1,7 +1,6 @@
 ''' Archivo main para gestión de productos '''
 import json
 import os
-from flask import render_template_string
 
 
 def createNewDB(name):
@@ -119,7 +118,6 @@ def getAllProducts(db):
             productList.append(load[product])
         return productList
 
-
 def editProduct(db, id, object):
     ''' Permite editar productos, pasandole la id y un Object con las propiedades a modificar'''
     with open(str(db)+".json", "r") as file:
@@ -134,7 +132,6 @@ def editProduct(db, id, object):
     except TypeError:
         print("Ese producto no existe!")
 
-
 def crearSucursal(nameDB, id, detalles):
     ''' Permite crear sucursales, pasandole una id y un object con los atributos que tendrá la sucursal'''
     try:
@@ -142,7 +139,7 @@ def crearSucursal(nameDB, id, detalles):
             load = json.load(file)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         load = {}
-
+    
     if str(id) in load:
         return None
     data = detalles
@@ -151,7 +148,6 @@ def crearSucursal(nameDB, id, detalles):
     load[str(id)] = data
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
-
 
 def editarSucursal(nameDB, id, detalles):
     ''' Permite editar una sucursal, pasandole la id y un object de los atributos a modificar'''
@@ -162,7 +158,7 @@ def editarSucursal(nameDB, id, detalles):
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         print("La base", nameDB, "no existe.")
         return None
-    if not (id in load):
+    if not(id in load):
         print("No se encontró el item con la id", id)
         return None
     for key in detalles:
@@ -171,8 +167,8 @@ def editarSucursal(nameDB, id, detalles):
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
-
 def eliminarSucursal(nameDB, id):
+    ''' Permite eliminar una sucursal con su id '''
     id = str(id)
     try:
         with open(str(nameDB) + ".json", 'r') as file:
@@ -180,10 +176,34 @@ def eliminarSucursal(nameDB, id):
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         print("La base", nameDB, "no existe.")
         return None
-    if not (id in load):
+    if not(id in load):
         print("El producto", id, "no existe")
     load.pop(id)
 
+    with open(str(nameDB) + ".json", 'w') as file2:
+        json.dump(load, file2, indent=4)
+
+def getNextID(allIDs):
+    ''' Obtiene la proxima id disponible en una lista de ids, buscando si hay huecos'''
+    try:
+        nextID = min(set(range(1, max(allIDs) + 2)) - allIDs)
+        return nextID
+    except ValueError:
+        return 0
+
+def nuevaVenta(nameDB, id, detalles):
+    ''' Crea una nueva venta para la sucursal con la id propocionada '''
+    id = str(id)
+    with open(str(nameDB) + ".json", 'r') as file:
+            load = json.load(file)
+    if not(id in load):
+        print("No se encontró el item", id)
+        return None
+    if not("ventas" in load[id]): # Si no hay categoría ventas, crear una
+        load[id]["ventas"] = {}
+    nextID = getNextID(set(map(int, load[id]["ventas"].keys()))) # Obtiene la proxima ID disponible
+    detalles["id"] = nextID
+    load[id]["ventas"][str(nextID)] = detalles
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
@@ -199,10 +219,13 @@ sucursales = "Sucursales"
 
 # deleteProduct("BaseDatos", "c")
 
+# print(getMultipleProducts(baseDatos, [1, 2, 3]))
 
 # print (getAllProducts(baseDatos))
 # editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
 
+# getNextID(baseDatos)
+# nuevaVenta(sucursales, 1, {"Producto": "Computadoras", "Cantidad": 1})
 # crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
 # editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
 # eliminarSucursal(sucursales, 1)
