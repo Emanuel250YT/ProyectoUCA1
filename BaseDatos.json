@@ -1,6 +1,6 @@
 {
     "0": {
-        "id": "0",
+        "id": 0,
         "descripcion": "dasd",
         "precio": 2,
         "descuento": 0,
@@ -10,7 +10,7 @@
         "costo": 1
     },
     "1": {
-        "id": "1",
+        "id": 1,
         "descripcion": "dasd",
         "precio": 2,
         "descuento": 0,
@@ -18,5 +18,25 @@
         "categoria": "EASDDD",
         "nombre": "bsdada",
         "costo": 1
+    },
+    "2": {
+        "id": 2,
+        "descripcion": "dasd",
+        "precio": 10,
+        "descuento": 0,
+        "stock": 2,
+        "categoria": "Ropa",
+        "nombre": "b",
+        "costo": 2
+    },
+    "3": {
+        "id": 3,
+        "descripcion": "a",
+        "precio": 123,
+        "descuento": 0,
+        "stock": 312,
+        "categoria": "Ropa",
+        "nombre": "a",
+        "costo": 12
     }
 }
