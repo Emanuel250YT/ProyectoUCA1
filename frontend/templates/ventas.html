@@ -28,16 +28,11 @@
                     <div class="col-3">
                         <label for="staticEmail2" class="visually-hidden">Email</label>
                         <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
-                            value="Buscar Venta por ID o Beneficiario">
+                            value="Buscar Venta por ID">
                     </div>
                     <div class="col-auto">
                         <label for="id" class="visually-hidden">ID</label>
                         <input type="number" class="form-control" id="id" name="id" placeholder="ID">
-                    </div>
-                    <div class="col-auto">
-                        <label for="id" class="visually-hidden">Beneficiario</label>
-                        <input type="number" class="form-control" id="beneficiario" name="beneficiario"
-                            placeholder="beneficiario">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Buscar</button>
@@ -59,7 +54,7 @@
                                     <option value="{{elemento.id}}">{{elemento.nombre}}</option>
                                 </tr>
                                 {% endfor %}
-                                
+
 
                             </select>
                         </div>
@@ -119,14 +114,20 @@
                     </thead>
                     <tbody>
                         <!-- Sucursal 1 -->
-                        <tr>
-                            <td>1</td>
-                            <td>Emanuel Guzman</td>
-                            <td>Sucursal Principal</td>
-                            <td><a href="/facturas/a" class="btn btn-outline-primary">Descargar Factura</a></td>
 
+
+                        {% for elemento in ventas["ventas"] %}
+                        <tr>
+                            <td>{{ elemento.id }}</td>
+                            <td>{{ elemento.beneficiario }}</td>
+                            <td>{{ elemento.sucursal.nombre }}</td>
+
+                            <td><a href="/facturas/{{elemento.id}}" class="btn btn-outline-primary">Descargar Factura</a></td>
                         </tr>
+                        {% endfor %}
                     </tbody>
+
+
                 </table>
             </div>
         </div>

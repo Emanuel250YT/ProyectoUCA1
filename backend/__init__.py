@@ -87,7 +87,6 @@ def obtenerVariosProductos(db, productos):
         for product in productos:
             for productDB in load:
                 tempProduct = load[productDB]
-                tempProduct["nombre"] = productDB
                 if (str(tempProduct["id"]) == str(product)):
                     listaProductos.append(tempProduct)
                 elif (tempProduct["nombre"] == product):
@@ -113,7 +112,6 @@ def obtenerTodosLosProductos(db):
     with open(str(db)+".json", 'r') as archivo:
         load = json.load(archivo)
         listaProductos = []
-
         for producto in load:
             listaProductos.append(load[producto])
         return listaProductos

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, render_template_string, send_from_directory, send_file
 from backend import *
 import pdfkit
+from datetime import datetime
 
 
 def setMainRoutes(app=Flask):
@@ -8,7 +9,8 @@ def setMainRoutes(app=Flask):
     def index():
         data = obtenerInformacionProductos(None, None)
         sucursales = obtenerInformacionSucursales(None)
-        return render_template("index.html", data=data, sucursales=sucursales)
+        ventas = obtenerInformacionVentas(None)
+        return render_template("index.html", data=data, sucursales=sucursales, ventas=ventas)
 
     @app.route("/productos", methods=["GET", "POST"])
     def products():
@@ -16,18 +18,20 @@ def setMainRoutes(app=Flask):
         porNombre = request.args.get("name")
         data = obtenerInformacionProductos(porID, porNombre)
         sucursales = obtenerInformacionSucursales(None)
+        ventas = obtenerInformacionVentas(None)
         if (request.form):
             newID = int(max(data["products"], key=lambda x: x['id'])["id"]) + 1
             crearProducto(nombreDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
             return redirect("/producto/"+str(newID))
-        return render_template("productos.html", data=data, sucursales=sucursales)
+        return render_template("productos.html", data=data, sucursales=sucursales, ventas=ventas)
 
     @app.route("/producto/<id>", methods=["GET", "POST"])
     def product(id):
         product = obtenerProducto(baseDatos, id)
         data = obtenerInformacionProductos(None, None)
         sucursales = obtenerInformacionSucursales(None)
+        ventas = obtenerInformacionVentas(None)
 
         if (product == None):
             return redirect("/productos")
@@ -37,7 +41,7 @@ def setMainRoutes(app=Flask):
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
             product = obtenerProducto(baseDatos, id)
 
-        return render_template("producto.html", product=product, data=data, sucursales=sucursales)
+        return render_template("producto.html", product=product, data=data, sucursales=sucursales, ventas=ventas)
 
     @app.route("/producto_eliminar/<id>", methods=["GET"])
     def productDelete(id):
@@ -62,13 +66,14 @@ def setMainRoutes(app=Flask):
                 "nombre": request.form.get("nombre")
             })
             return redirect("/sucursal/"+str(newID))
-        return render_template("sucursales.html", data=data, sucursales=sucursales)
+        return render_template("sucursales.html", data=data, sucursales=sucursales, ventas=ventas)
 
     @app.route("/sucursal/<id>", methods=["GET", "POST"])
     def sucursal(id):
         product = obtenerProducto("Sucursales", id)
         data = obtenerInformacionProductos(None, None)
         sucursales = obtenerInformacionSucursales(None)
+        ventas = obtenerInformacionVentas(None)
 
         if (product == None):
             return redirect("/productos")
@@ -83,7 +88,7 @@ def setMainRoutes(app=Flask):
 
             product = obtenerProducto("Sucursales", id)
 
-        return render_template("sucursal.html", sucursal=product, data=data, sucursales=sucursales)
+        return render_template("sucursal.html", sucursal=product, data=data, sucursales=sucursales, ventas=ventas)
 
     @app.route("/sucursal_eliminar/<id>", methods=["GET"])
     def sucursalDelete(id):
@@ -93,28 +98,47 @@ def setMainRoutes(app=Flask):
             eliminarSucursal("Sucursales", id)
             return redirect("/sucursales")
 
-    @app.route("/ventas")
+    @app.route("/ventas", methods=["GET", "POST"])
     def ventas():
+        porID = request.args.get("id")
         data = obtenerInformacionProductos(None, None)
         sucursales = obtenerInformacionSucursales(None)
+        ventas = obtenerInformacionVentas(None)
+        v = obtenerInformacionVentas(porID)
 
-        return render_template("ventas.html", data=data, sucursales=sucursales)
-
-    @app.route("/venta/<id>")
-    def venta(id):
-        data = obtenerInformacionProductos(None, None)
-        sucursales = obtenerInformacionSucursales(None)
-
-        with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
-            content = file.read()
-            render = render_template_string(content)
-            pdfkit.from_string(
-                content, "frontend/static/facturas/factura-"+id+".pdf")
-
-        return render_template("ventas.html", data=data, sucursales=sucursales)
+        productosVendidos = []
+        sucursalObjetivo = obtenerInformacionSucursales(
+            request.form.get("sucursal"))["sucursales"][0]
+        if (request.form):
+            newID = 0
+            if (v["ventas_count"] > 0):
+                newID = int(max(v["ventas"],
+                                key=lambda x: x['id'])["id"]) + 1
+            crearSucursal("Ventas", newID, detalles={
+                "id": newID,
+                "fecha": datetime.now().strftime("%d/%m/%y %H:%M:%S"),
+                "beneficiario": request.form.get("beneficiario"),
+                "sucursal": sucursalObjetivo,
+                "productos": obtenerVariosProductos("BaseDatos", request.form.get("productos").split(" "))
+            })
+            # return redirect("/venta/"+str(newID))
+        return render_template("ventas.html", data=data, sucursales=sucursales, ventas=ventas)
 
     @app.route("/facturas/<id>")
     def facturas(id):
+
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(None)
+        ventas = obtenerInformacionVentas(id)
+        venta = ventas["ventas"][0]
+
+
+        with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
+            content = file.read()
+            render = render_template_string(
+                content, data=data, sucursales=sucursales, venta=venta, total= sum(producto["precio"] for producto in venta["productos"]))
+            pdfkit.from_string(
+                render, "frontend/static/facturas/factura-"+id+".pdf")
         return send_file(f"static/facturas/factura-{id}.pdf", as_attachment=True)
 
 
@@ -146,11 +170,12 @@ def obtenerInformacionSucursales(porID):
     }
     return data
 
-def obtenerInformacionVentas(porID, porBeneficiario):
+
+def obtenerInformacionVentas(porID):
     allProducts = None
-    if (porID or porBeneficiario):
+    if (porID):
         allProducts = [sucursal for sucursal in obtenerTodosLosProductos(
-            "Ventas") if int(sucursal["id"]) == int(porID) or sucursal["beneficiario"].lower() == porBeneficiario.lower()]
+            "Ventas") if int(sucursal["id"]) == int(porID)]
     else:
         allProducts = obtenerTodosLosProductos("Ventas")
     data = {

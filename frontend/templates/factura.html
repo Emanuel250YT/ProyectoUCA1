@@ -54,14 +54,13 @@
     <div class="factura">
         <div class="encabezado">
             <h1>Factura</h1>
-            <p>Fecha: 10 de noviembre de 2023</p>
+            <p>Fecha: {{venta.fecha}}</p>
         </div>
 
         <div class="cliente">
             <h2>Cliente:</h2>
-            <p>Nombre: Juan Pérez</p>
-            <p>Dirección: Calle Principal 123, Ciudad Ejemplo</p>
-            <p>Email: juan@example.com</p>
+            <p>Nombre: {{venta.beneficiario}}</p>
+            <p>Sucursal: {{venta.sucursal.nombre}}</p>
         </div>
 
         <div class="productos">
@@ -69,31 +68,28 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio Unitario</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for elemento in venta["productos"] %}
                     <tr>
-                        <td>Camiseta</td>
-                        <td>2</td>
-                        <td>$20.99</td>
-                        <td>$41.98</td>
+                        <td>{{ elemento.id }}</td>
+                        <td>{{ elemento.nombre }}</td>
+                        <td>{{ elemento.descripcion }}</td>
+                        <td>${{ elemento.precio }}</td>
+
                     </tr>
-                    <tr>
-                        <td>Zapatos Deportivos</td>
-                        <td>1</td>
-                        <td>$49.99</td>
-                        <td>$49.99</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
 
         <div class="total">
-            <p>Total: $91.97</p>
+            <p>Total: ${{total}}</p>
         </div>
     </div>
 
