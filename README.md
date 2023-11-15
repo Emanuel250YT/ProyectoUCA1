@@ -1,12 +1,26 @@
-# ProyectoUCA1
+# Introducción a la informática - UCASAL | Gestor de Ventas y Stock
 
-El dueño del repo es medio homosexual --
-medio???
-Seguro que no demasiado?
+## Ejecutando el Código
 
+Instalar las siguientes dependencias en su equipo local:
+
+```
+pip install flask==3.0.0
+pip install pdfkit
+```
+
+En el directorio "dependencias" ejecutar el instalador. El mismo creará una carpeta en archivo de programa con el nombre "wkhtmltox", donde el archivo .bin de su interior deben colocarlo en la ruta path de su equipo local. 
+
+## Abstract
+
+El siguiente repositorio contiene el código correspondiente a una aplicación que permite al usuario gestionar el stock, las ventas e ingresos de productos referidos a un tipo de organización. ¡Incluso puede generar facturas!
 <br>
-En dependencias tienen que usar le instalador, se va a crear una carpeta en archivos de programa que tiene el nombre
-wkhtmltox, adentro agarran el bin y lo ponen en la ruta path de su pc
 
-<br>
-pip install pdfkit flask
+La interfaz de usuario se encuentra embebida en formato HTML a fin de brindar la mejor experiencia al usuario, permitiéndole interactuar de manera dinámica y eficiente.
+
+## Desarrolladores del código
+
+- Guzman Eduardo, Emanuel
+- Uriburu Romero, Gerardo Benjamín
+- Guantay Pojasi, Jaime
+- Vásquez, Jorge Luis
