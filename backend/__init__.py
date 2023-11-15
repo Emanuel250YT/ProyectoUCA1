@@ -6,7 +6,7 @@ import os
 def crearBaseDeDatos(nombre):
     ''' Crea una nueva base de datos .JSON '''
     direccion_archivo = str(nombre) + ".json"
-    if os.path.isarchivo(direccion_archivo):
+    if os.path.isfile(direccion_archivo):
         print(f"El archivo '{direccion_archivo}' ya existe.")
         return
     with open(str(nombre)+".json", 'w') as archivo:
@@ -248,7 +248,7 @@ sucursales = "Sucursales"
 
 # getNextID(baseDatos)
 # nuevaVenta(sucursales, 1, {"Producto": "Computadoras", "Cantidad": 1})
-crearSucursal("Sucursales", 2, {"nombre": "Ucasal", "Compañeros":"Gays"})
+# crearSucursal("Sucursales", 2, {"nombre": "Ucasal", "Compañeros":"Gays"})
 # editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
 # eliminarSucursal(sucursales, 1)
 
