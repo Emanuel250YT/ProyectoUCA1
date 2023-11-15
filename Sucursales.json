@@ -1,22 +1,11 @@
 {
-    "4": {
-        "id": 4,
-        "productos": [
-            "1",
-            "2",
-            "3"
-        ],
-        "description": "A",
-        "nombre": "A"
-    },
-    "5": {
-        "id": 5,
-        "productos": [
-            "12",
-            "1",
-            ""
-        ],
-        "description": "dasd",
-        "nombre": "a"
+    "1": {
+        "nombre": "Ucapop",
+        "Compa\u00f1eros": "Gays",
+        "id": 1,
+        "Productos": [
+            "Libros",
+            "Computadoras"
+        ]
     }
 }

@@ -208,6 +208,27 @@ def nuevaVenta(nameDB, id, detalles):
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
+def buscarVenta(nameDB, sucursal, id):
+    ''' Permite buscar una venta por su id '''
+    sucursal = str(sucursal)
+    id = str(id)
+    with open(str(nameDB) + ".json", 'r') as file:
+            load = json.load(file)
+    
+    if not(sucursal in load):
+        print("No existe esa sucursal!")
+        return None
+    if not(load[sucursal]["ventas"]):
+        print("Esa sucursal no tiene ventas!")
+        return None
+    if not(id in load[sucursal]["ventas"]):
+        print("Esa venta no existe!")
+        return None
+    
+    return load[sucursal]["ventas"][id]
+    
+    
+
 baseDatos = "BaseDatos"
 sucursales = "Sucursales"
 
@@ -230,3 +251,5 @@ sucursales = "Sucursales"
 # crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
 # editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
 # eliminarSucursal(sucursales, 1)
+
+# print(buscarVenta(sucursales, 1, 1))
