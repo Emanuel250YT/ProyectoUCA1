@@ -1,20 +1,4 @@
 {
-    "1": {
-        "nombre": "Ucapop",
-        "Compa\u00f1eros": "Gays",
-        "id": 1,
-        "Productos": [
-            "Libros",
-            "Computadoras"
-        ],
-        "ventas": {
-            "0": {
-                "Producto": "Computadoras",
-                "Cantidad": 1,
-                "id": 0
-            }
-        }
-    },
     "2": {
         "nombre": "Ucasal",
         "Compa\u00f1eros": "Gays",

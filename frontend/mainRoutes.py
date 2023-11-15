@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, render_template_string
+from flask import Flask, render_template, request, redirect, render_template_string, send_from_directory, send_file
 from backend import *
 import pdfkit
 
@@ -18,7 +18,7 @@ def setMainRoutes(app=Flask):
         sucursales = obtenerInformacionSucursales(None)
         if (request.form):
             newID = int(max(data["products"], key=lambda x: x['id'])["id"]) + 1
-            crearProducto(nameDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
+            crearProducto(nombreDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
             return redirect("/producto/"+str(newID))
         return render_template("productos.html", data=data, sucursales=sucursales)
@@ -33,7 +33,7 @@ def setMainRoutes(app=Flask):
             return redirect("/productos")
         if (request.form):
             borrarProducto(baseDatos, id)
-            crearProducto(nameDB=baseDatos, id=id, name=request.form.get("nombre"), desc=request.form.get(
+            crearProducto(nombreDB=baseDatos, id=id, name=request.form.get("nombre"), desc=request.form.get(
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
             product = obtenerProducto(baseDatos, id)
 
@@ -55,7 +55,7 @@ def setMainRoutes(app=Flask):
         if (request.form):
             newID = int(max(sucursales["sucursales"],
                         key=lambda x: x['id'])["id"]) + 1
-            crearSucursal(nameDB="Sucursales", id=newID, detalles={
+            crearSucursal(nombreDB="Sucursales", id=newID, detalles={
                 "id": newID,
                 "productos": request.form.get("productos").split(" "),
                 "description": request.form.get("desc"),
@@ -74,7 +74,7 @@ def setMainRoutes(app=Flask):
             return redirect("/productos")
         if (request.form):
             eliminarSucursal("Sucursales", id)
-            crearSucursal(nameDB="Sucursales", id=id, detalles={
+            crearSucursal(nombreDB="Sucursales", id=id, detalles={
                 "id": id,
                 "productos": request.form.get("productos").split(" "),
                 "description": request.form.get("desc"),
@@ -84,6 +84,14 @@ def setMainRoutes(app=Flask):
             product = obtenerProducto("Sucursales", id)
 
         return render_template("sucursal.html", sucursal=product, data=data, sucursales=sucursales)
+
+    @app.route("/sucursal_eliminar/<id>", methods=["GET"])
+    def sucursalDelete(id):
+        product = obtenerProducto("Sucursales", id)
+        data = obtenerInformacionSucursales(None)
+        if (product != None):
+            eliminarSucursal("Sucursales", id)
+            return redirect("/sucursales")
 
     @app.route("/ventas")
     def ventas():
@@ -104,6 +112,10 @@ def setMainRoutes(app=Flask):
                 content, "frontend/static/facturas/factura-"+id+".pdf")
 
         return render_template("ventas.html", data=data, sucursales=sucursales)
+
+    @app.route("/facturas/<id>")
+    def facturas(id):
+        return send_file(f"static/facturas/factura-{id}.pdf", as_attachment=True)
 
 
 def obtenerInformacionProductos(porID, porNombre):
@@ -131,8 +143,19 @@ def obtenerInformacionSucursales(porID):
     data = {
         "sucursales": allProducts,
         "sucursales_count": len(allProducts),
-        # "no_stock": [producto for producto in allProducts if producto['stock'] <= 0],
-        # "no_stock_count": len([producto for producto in allProducts if producto['stock'] <= 0])
+    }
+    return data
+
+def obtenerInformacionVentas(porID, porBeneficiario):
+    allProducts = None
+    if (porID or porBeneficiario):
+        allProducts = [sucursal for sucursal in obtenerTodosLosProductos(
+            "Ventas") if int(sucursal["id"]) == int(porID) or sucursal["beneficiario"].lower() == porBeneficiario.lower()]
+    else:
+        allProducts = obtenerTodosLosProductos("Ventas")
+    data = {
+        "ventas": allProducts,
+        "ventas_count": len(allProducts),
     }
     return data
 
