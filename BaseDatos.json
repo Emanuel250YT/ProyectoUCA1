@@ -48,5 +48,15 @@
         "categoria": "Ropa",
         "nombre": "a",
         "costo": 1
+    },
+    "5": {
+        "id": 5,
+        "descripcion": "ES RE PUTA",
+        "precio": 0,
+        "descuento": 100,
+        "stock": 1,
+        "categoria": "Putas",
+        "nombre": "Nati puta",
+        "costo": 0
     }
 }

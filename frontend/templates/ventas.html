@@ -28,11 +28,16 @@
                     <div class="col-3">
                         <label for="staticEmail2" class="visually-hidden">Email</label>
                         <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
-                            value="Buscar Sucursal por ID o nombre">
+                            value="Buscar Venta por ID o Beneficiario">
                     </div>
                     <div class="col-auto">
                         <label for="id" class="visually-hidden">ID</label>
                         <input type="number" class="form-control" id="id" name="id" placeholder="ID">
+                    </div>
+                    <div class="col-auto">
+                        <label for="id" class="visually-hidden">Beneficiario</label>
+                        <input type="number" class="form-control" id="beneficiario" name="beneficiario"
+                            placeholder="beneficiario">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Buscar</button>
@@ -49,9 +54,13 @@
                         <div class="form-group">
                             <label for="seleccionProducto">Selecciona una sucursal:</label>
                             <select class="form-control" id="seleccionProducto" name="sucursal">
-                                <option value="camiseta">Camiseta</option>
-                                <option value="zapatos">Zapatos Deportivos</option>
-                                <option value="mochila">Mochila</option>
+                                {% for elemento in sucursales["sucursales"] %}
+                                <tr>
+                                    <option value="{{elemento.id}}">{{elemento.nombre}}</option>
+                                </tr>
+                                {% endfor %}
+                                
+
                             </select>
                         </div>
 

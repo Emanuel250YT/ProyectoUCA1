@@ -24,29 +24,7 @@
 
             <div class="col-12">
                 <hr>
-                <form class="row g-3">
-                    <div class="col-3">
-                        <label for="staticEmail2" class="visually-hidden">Email</label>
-                        <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
-                            value="Buscar Sucursal por ID">
-                    </div>
-                    <div class="col-auto">
-                        <label for="id" class="visually-hidden">ID</label>
-                        <input type="number" class="form-control" id="id" name="id" placeholder="ID">
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Buscar</button>
-
-                    </div>
-                    <div class="col-auto">
-                        <a href="/sucursales" class="btn btn-primary">Ver todas</a>
-                    </div>
-                </form>
-            </div>
-
-            <div class="col-12">
-                <hr>
-                <h2>Crear Sucursal</h2>
+                <h2>Editar Sucursal</h2>
                 <form action="" method="post">
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
@@ -54,7 +32,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="text" id="inputPassword6" name="nombre" class="form-control"
-                                aria-describedby="passwordHelpInline" required>
+                                aria-describedby="passwordHelpInline" required value="{{sucursal.nombre}}">
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
@@ -69,7 +47,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="text" id="inputPassword6" name="desc" class="form-control"
-                                aria-describedby="passwordHelpInline" required>
+                                aria-describedby="passwordHelpInline" required value="{{sucursal.description}}">
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
@@ -85,7 +63,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="text" id="inputPassword6" name="productos" class="form-control"
-                                aria-describedby="passwordHelpInline" required>
+                                aria-describedby="passwordHelpInline" required value="{{' '.join(sucursal.productos)}}">
                         </div>
                         <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
@@ -100,34 +78,7 @@
 
             </div>
 
-            <div class="col-12">
-                <hr>
-                <h2>Tabla de Sucursales</h2>
-                <br>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Administrar</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-                        {% for elemento in sucursales["sucursales"] %}
-                        <tr>
-                            <td>{{ elemento.id }}</td>
-                            <td>{{ elemento.nombre }}</td>
-                            <td><a href="/sucursal/{{elemento.id}}" class="btn btn-primary">Editar</a></td>
-                        </tr>
-                        {% endfor %}
-
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </body>
