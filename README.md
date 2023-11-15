@@ -9,7 +9,7 @@ pip install flask==3.0.0
 pip install pdfkit
 ```
 
-En el directorio "dependencias" ejecutar el instalador. El mismo creará una carpeta en archivo de programa con el nombre "wkhtmltox", donde el archivo .bin de su interior deben colocarlo en la ruta path de su equipo local. 
+En el directorio "dependencias" ejecutar el instalador. El mismo creará una carpeta en archivo de programa con el nombre "wkhtmltox", donde el archivo .bin de su interior deben colocarlo en la ruta path de su equipo local. (Descargar el instalador desde https://wkhtmltopdf.org/downloads.html)
 
 ## Abstract
 
