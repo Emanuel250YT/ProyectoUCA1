@@ -56,6 +56,7 @@ def setMainRoutes(app=Flask):
         porID = request.args.get("id")
         data = obtenerInformacionProductos(None, None)
         sucursales = obtenerInformacionSucursales(porID=porID)
+        ventas = obtenerInformacionVentas(None)
         if (request.form):
             newID = int(max(sucursales["sucursales"],
                         key=lambda x: x['id'])["id"]) + 1
@@ -132,11 +133,10 @@ def setMainRoutes(app=Flask):
         ventas = obtenerInformacionVentas(id)
         venta = ventas["ventas"][0]
 
-
         with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
             content = file.read()
             render = render_template_string(
-                content, data=data, sucursales=sucursales, venta=venta, total= sum(producto["precio"] for producto in venta["productos"]))
+                content, data=data, sucursales=sucursales, venta=venta, total=sum(producto["precio"] for producto in venta["productos"]))
             pdfkit.from_string(
                 render, "frontend/static/facturas/factura-"+id+".pdf")
         return send_file(f"static/facturas/factura-{id}.pdf", as_attachment=True)
@@ -178,9 +178,19 @@ def obtenerInformacionVentas(porID):
             "Ventas") if int(sucursal["id"]) == int(porID)]
     else:
         allProducts = obtenerTodosLosProductos("Ventas")
+
+    totalCosto = 0
+    totalIngreso = 0
+
+    for producto in allProducts:
+        totalCosto += sum(v["costo"] for v in producto["productos"])
+        totalIngreso += sum(v["precio"] for v in producto["productos"])
+
     data = {
         "ventas": allProducts,
         "ventas_count": len(allProducts),
+        "total_ingresos": totalIngreso,
+        "total_costo": totalCosto
     }
     return data
 
