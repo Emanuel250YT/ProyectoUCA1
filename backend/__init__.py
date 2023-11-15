@@ -3,17 +3,17 @@ import json
 import os
 
 
-def createNewDB(name):
+def crearBaseDeDatos(nombre):
     ''' Crea una nueva base de datos .JSON '''
-    file_path = str(name) + ".json"
-    if os.path.isfile(file_path):
-        print(f"El archivo '{file_path}' ya existe.")
+    direccion_archivo = str(nombre) + ".json"
+    if os.path.isarchivo(direccion_archivo):
+        print(f"El archivo '{direccion_archivo}' ya existe.")
         return
-    with open(str(name)+".json", 'w') as file:
-        json.dump({}, file)
+    with open(str(nombre)+".json", 'w') as archivo:
+        json.dump({}, archivo)
 
 
-def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
+def crearProducto(nombreDB, id, nombre, desc, price, descuento, stock, categ, costo):
     ''' Permite añadir un nuevo producto a la base de datos especificada'''
     data = {
         "id": int(id),
@@ -22,13 +22,13 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
         "descuento": descuento,
         "stock": stock,
         "categoria": categ,
-        "nombre": name,
+        "nombre": nombre,
         "costo": costo
     }
 
     try:
-        with open(str(nameDB) + ".json", 'r') as file:
-            a = json.load(file)
+        with open(str(nombreDB) + ".json", 'r') as archivo:
+            a = json.load(archivo)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         a = {}
 
@@ -37,106 +37,106 @@ def addProduct(nameDB, id, name, desc, price, descuento, stock, categ, costo):
 
     a[id] = data
 
-    with open(str(nameDB) + ".json", 'w') as file:
-        json.dump(a, file, indent=4)
+    with open(str(nombreDB) + ".json", 'w') as archivo2:
+        json.dump(a, archivo2, indent=4)
 
 
-def getProduct(db, product):
+def obtenerProducto(nombreDB, producto):
     ''' Permite obtener el diccionario del producto desde la BD'''
-    with open(str(db)+".json", 'r') as file:
-        load = json.load(file)
+    with open(str(nombreDB)+".json", 'r') as archivo:
+        load = json.load(archivo)
         try:
-            if (load[product]):
-                return load[product]
+            if (load[producto]):
+                return load[producto]
         except:
             return None
 
 
-def deleteProduct(db, product):
+def borrarProducto(nombreDB, producto):
     ''' Permite eliminar un producto mediante su nombre '''
-    with open(str(db)+".json", "r+") as file:
-        load = json.load(file)
+    with open(str(nombreDB)+".json", "r+") as archivo:
+        load = json.load(archivo)
     try:
-        load.pop(product)
+        load.pop(producto)
 
-        with open(str(db)+".json", 'w') as file2:
-            json.dump(load, file2, indent=4)
+        with open(str(nombreDB)+".json", 'w') as archivo2:
+            json.dump(load, archivo2, indent=4)
     except KeyError:
         print("No existe tal elemento!")
 
 
-def deleteMultipleProducts(db, products):
+def borrarVariosProductos(nombreDB, productos):
     ''' Permite eliminar varios productos pasandole un array de sus nombres '''
-    with open(str(db)+".json", "r+") as file:
-        load = json.load(file)
-    for product in products:
+    with open(str(nombreDB)+".json", "r+") as archivo:
+        load = json.load(archivo)
+    for producto in productos:
         try:
-            load.pop(product)
+            load.pop(producto)
         except KeyError:
-            print("No existe el elemento", product)
+            print("No existe el elemento", producto)
 
-    with open(str(db)+".json", 'w') as file2:
-        json.dump(load, file2, indent=4)
+    with open(str(nombreDB)+".json", 'w') as archivo2:
+        json.dump(load, archivo2, indent=4)
 
 
-def getMultipleProducts(db, products):
+def obtenerVariosProductos(db, productos):
     ''' Permite buscar varios productos pasandole un array de sus nombres'''
-    with open(str(db)+".json", 'r') as file:
-        load = json.load(file)
-        productList = []
-        for product in products:
+    with open(str(db)+".json", 'r') as archivo:
+        load = json.load(archivo)
+        listaProductos = []
+        for product in productos:
             for productDB in load:
                 tempProduct = load[productDB]
                 tempProduct["nombre"] = productDB
                 if (str(tempProduct["id"]) == str(product)):
-                    productList.append(tempProduct)
+                    listaProductos.append(tempProduct)
                 elif (tempProduct["nombre"] == product):
-                    productList.append(tempProduct)
+                    listaProductos.append(tempProduct)
 
-        return productList
+        return listaProductos
 
 
-def getAttribute(db, productName, attribute):
+def obtenerAtributo(db, nombreProducto, atributo):
     ''' Permite buscar atributos de un producto '''
-    product = getProduct(db, productName)
+    product = obtenerProducto(db, nombreProducto)
     if product == None:
         print("Ese producto no existe")
         return
     try:
-        return product[attribute]
+        return product[atributo]
     except KeyError:
-        print("El producto", productName, "no tiene", attribute)
+        print("El producto", nombreProducto, "no tiene", atributo)
 
 
-def getAllProducts(db):
+def obtenerTodosLosProductos(db):
     ''' Devuelve todos los productos '''
-    with open(str(db)+".json", 'r') as file:
-        load = json.load(file)
-        productList = []
+    with open(str(db)+".json", 'r') as archivo:
+        load = json.load(archivo)
+        listaProductos = []
 
-        for product in load:
-            productList.append(load[product])
-        return productList
+        for producto in load:
+            listaProductos.append(load[producto])
+        return listaProductos
 
-def editProduct(db, id, object):
+def editarProducto(db, id, objeto):
     ''' Permite editar productos, pasandole la id y un Object con las propiedades a modificar'''
-    with open(str(db)+".json", "r") as file:
-        load = json.load(file)
-    originalProduct = load[id]
+    with open(str(db)+".json", "r") as archivo:
+        load = json.load(archivo)
+    productoOriginal = load[id]
     try:
         for key in object:
-            originalProduct[key] = object[key]
-        load[id] = originalProduct
-        with open(str(db)+".json", 'w') as file2:
-            json.dump(load, file2, indent=4)
+            productoOriginal[key] = object[key]
+        load[id] = productoOriginal
+        with open(str(db)+".json", 'w') as archivo2:
+            json.dump(load, archivo2, indent=4)
     except TypeError:
         print("Ese producto no existe!")
 
-def crearSucursal(nameDB, id, detalles):
+def crearSucursal(nombreDB, id, detalles):
     ''' Permite crear sucursales, pasandole una id y un object con los atributos que tendrá la sucursal'''
     try:
-        with open(str(nameDB) + ".json", 'r') as file:
-            load = json.load(file)
+        with open(str(nombreDB) + ".json", 'r') as archivo:
+            load = json.load(archivo)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         load = {}
     
@@ -146,17 +146,17 @@ def crearSucursal(nameDB, id, detalles):
     data["id"] = id
 
     load[str(id)] = data
-    with open(str(nameDB) + ".json", 'w') as file2:
-        json.dump(load, file2, indent=4)
+    with open(str(nombreDB) + ".json", 'w') as archivo2:
+        json.dump(load, archivo2, indent=4)
 
-def editarSucursal(nameDB, id, detalles):
+def editarSucursal(nombreDB, id, detalles):
     ''' Permite editar una sucursal, pasandole la id y un object de los atributos a modificar'''
     id = str(id)
     try:
-        with open(str(nameDB) + ".json", 'r') as file:
-            load = json.load(file)
+        with open(str(nombreDB) + ".json", 'r') as archivo:
+            load = json.load(archivo)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
-        print("La base", nameDB, "no existe.")
+        print("La base", nombreDB, "no existe.")
         return None
     if not(id in load):
         print("No se encontró el item con la id", id)
@@ -164,56 +164,56 @@ def editarSucursal(nameDB, id, detalles):
     for key in detalles:
         load[id][key] = detalles[key]
 
-    with open(str(nameDB) + ".json", 'w') as file2:
-        json.dump(load, file2, indent=4)
+    with open(str(nombreDB) + ".json", 'w') as archivo2:
+        json.dump(load, archivo2, indent=4)
 
-def eliminarSucursal(nameDB, id):
+def eliminarSucursal(nombreDB, id):
     ''' Permite eliminar una sucursal con su id '''
     id = str(id)
     try:
-        with open(str(nameDB) + ".json", 'r') as file:
-            load = json.load(file)
+        with open(str(nombreDB) + ".json", 'r') as archivo:
+            load = json.load(archivo)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
-        print("La base", nameDB, "no existe.")
+        print("La base", nombreDB, "no existe.")
         return None
     if not(id in load):
         print("El producto", id, "no existe")
     load.pop(id)
 
-    with open(str(nameDB) + ".json", 'w') as file2:
-        json.dump(load, file2, indent=4)
+    with open(str(nombreDB) + ".json", 'w') as archivo2:
+        json.dump(load, archivo2, indent=4)
 
 
-def getNextID(allIDs):
+def obtenerProximaID(todasLasIDs):
     ''' Obtiene la proxima id disponible en una lista de ids, buscando si hay huecos'''
     try:
-        nextID = min(set(range(1, max(allIDs) + 2)) - allIDs)
+        nextID = min(set(range(1, max(todasLasIDs) + 2)) - todasLasIDs)
         return nextID
     except ValueError:
         return 0
 
-def nuevaVenta(nameDB, id, detalles):
+def nuevaVenta(nombreDB, id, detalles):
     ''' Crea una nueva venta para la sucursal con la id propocionada '''
     id = str(id)
-    with open(str(nameDB) + ".json", 'r') as file:
-            load = json.load(file)
+    with open(str(nombreDB) + ".json", 'r') as archivo:
+            load = json.load(archivo)
     if not(id in load):
         print("No se encontró el item", id)
         return None
     if not("ventas" in load[id]): # Si no hay categoría ventas, crear una
         load[id]["ventas"] = {}
-    nextID = getNextID(set(map(int, load[id]["ventas"].keys()))) # Obtiene la proxima ID disponible
+    nextID = obtenerProximaID(set(map(int, load[id]["ventas"].keys()))) # Obtiene la proxima ID disponible
     detalles["id"] = nextID
     load[id]["ventas"][str(nextID)] = detalles
-    with open(str(nameDB) + ".json", 'w') as file2:
-        json.dump(load, file2, indent=4)
+    with open(str(nombreDB) + ".json", 'w') as archivo2:
+        json.dump(load, archivo2, indent=4)
 
-def buscarVenta(nameDB, sucursal, id):
+def buscarVenta(nombreDB, sucursal, id):
     ''' Permite buscar una venta por su id '''
     sucursal = str(sucursal)
     id = str(id)
-    with open(str(nameDB) + ".json", 'r') as file:
-            load = json.load(file)
+    with open(str(nombreDB) + ".json", 'r') as archivo:
+            load = json.load(archivo)
     
     if not(sucursal in load):
         print("No existe esa sucursal!")
@@ -248,7 +248,7 @@ sucursales = "Sucursales"
 
 # getNextID(baseDatos)
 # nuevaVenta(sucursales, 1, {"Producto": "Computadoras", "Cantidad": 1})
-# crearSucursal("Sucursales", 1, {"nombre": "Ucasal", "Compañeros":"Gays"})
+crearSucursal("Sucursales", 2, {"nombre": "Ucasal", "Compañeros":"Gays"})
 # editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
 # eliminarSucursal(sucursales, 1)
 
