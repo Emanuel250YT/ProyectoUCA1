@@ -6,52 +6,52 @@ import pdfkit
 def setMainRoutes(app=Flask):
     @app.route("/")
     def index():
-        data = getData(None, None)
-        sucursales = getDataSucursales(None)
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(None)
         return render_template("index.html", data=data, sucursales=sucursales)
 
     @app.route("/productos", methods=["GET", "POST"])
     def products():
-        byId = request.args.get("id")
-        byName = request.args.get("name")
-        data = getData(byId, byName)
-        sucursales = getDataSucursales(None)
+        porID = request.args.get("id")
+        porNombre = request.args.get("name")
+        data = obtenerInformacionProductos(porID, porNombre)
+        sucursales = obtenerInformacionSucursales(None)
         if (request.form):
             newID = int(max(data["products"], key=lambda x: x['id'])["id"]) + 1
-            addProduct(nameDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
+            crearProducto(nameDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
             return redirect("/producto/"+str(newID))
         return render_template("productos.html", data=data, sucursales=sucursales)
 
     @app.route("/producto/<id>", methods=["GET", "POST"])
     def product(id):
-        product = getProduct(baseDatos, id)
-        data = getData(None, None)
-        sucursales = getDataSucursales(None)
+        product = obtenerProducto(baseDatos, id)
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(None)
 
         if (product == None):
             return redirect("/productos")
         if (request.form):
-            deleteProduct(baseDatos, id)
-            addProduct(nameDB=baseDatos, id=id, name=request.form.get("nombre"), desc=request.form.get(
+            borrarProducto(baseDatos, id)
+            crearProducto(nameDB=baseDatos, id=id, name=request.form.get("nombre"), desc=request.form.get(
                 "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
-            product = getProduct(baseDatos, id)
+            product = obtenerProducto(baseDatos, id)
 
         return render_template("producto.html", product=product, data=data, sucursales=sucursales)
 
     @app.route("/producto_eliminar/<id>", methods=["GET"])
     def productDelete(id):
-        product = getProduct(baseDatos, id)
-        data = getData(None, None)
+        product = obtenerProducto(baseDatos, id)
+        data = obtenerInformacionProductos(None, None)
         if (product != None):
-            deleteProduct(baseDatos, id)
+            borrarProducto(baseDatos, id)
             return redirect("/productos")
 
     @app.route("/sucursales", methods=["GET", "POST"])
     def sucursales():
-        byId = request.args.get("id")
-        data = getData(None, None)
-        sucursales = getDataSucursales(byId=byId)
+        porID = request.args.get("id")
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(porID=porID)
         if (request.form):
             newID = int(max(sucursales["sucursales"],
                         key=lambda x: x['id'])["id"]) + 1
@@ -66,9 +66,9 @@ def setMainRoutes(app=Flask):
 
     @app.route("/sucursal/<id>", methods=["GET", "POST"])
     def sucursal(id):
-        product = getProduct("Sucursales", id)
-        data = getData(None, None)
-        sucursales = getDataSucursales(None)
+        product = obtenerProducto("Sucursales", id)
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(None)
 
         if (product == None):
             return redirect("/productos")
@@ -80,22 +80,22 @@ def setMainRoutes(app=Flask):
                 "description": request.form.get("desc"),
                 "nombre": request.form.get("nombre")
             })
-            
-            product = getProduct("Sucursales", id)
+
+            product = obtenerProducto("Sucursales", id)
 
         return render_template("sucursal.html", sucursal=product, data=data, sucursales=sucursales)
 
     @app.route("/ventas")
     def ventas():
-        data = getData(None, None)
-        sucursales = getDataSucursales(None)
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(None)
 
         return render_template("ventas.html", data=data, sucursales=sucursales)
 
     @app.route("/venta/<id>")
     def venta(id):
-        data = getData(None, None)
-        sucursales = getDataSucursales(None)
+        data = obtenerInformacionProductos(None, None)
+        sucursales = obtenerInformacionSucursales(None)
 
         with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
             content = file.read()
@@ -106,12 +106,12 @@ def setMainRoutes(app=Flask):
         return render_template("ventas.html", data=data, sucursales=sucursales)
 
 
-def getData(byId, byName):
+def obtenerInformacionProductos(porID, porNombre):
     allProducts = None
-    if (byId or byName):
-        allProducts = getMultipleProducts(baseDatos, [byName, byId])
+    if (porID or porNombre):
+        allProducts = obtenerVariosProductos(baseDatos, [porNombre, porID])
     else:
-        allProducts = getAllProducts(baseDatos)
+        allProducts = obtenerTodosLosProductos(baseDatos)
     data = {
         "products": allProducts,
         "products_count": len(allProducts),
@@ -121,13 +121,13 @@ def getData(byId, byName):
     return data
 
 
-def getDataSucursales(byId):
+def obtenerInformacionSucursales(porID):
     allProducts = None
-    if (byId):
-        allProducts = [sucursal for sucursal in getAllProducts(
-            sucursales) if int(sucursal["id"]) == int(byId)]
+    if (porID):
+        allProducts = [sucursal for sucursal in obtenerTodosLosProductos(
+            sucursales) if int(sucursal["id"]) == int(porID)]
     else:
-        allProducts = getAllProducts(sucursales)
+        allProducts = obtenerTodosLosProductos(sucursales)
     data = {
         "sucursales": allProducts,
         "sucursales_count": len(allProducts),
