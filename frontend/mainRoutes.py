@@ -6,7 +6,7 @@ import pdfkit
 def setMainRoutes(app=Flask):
     @app.route("/")
     def index():
-        data = getData()
+        data = getData(None, None)
         return render_template("index.html", data=data)
 
     @app.route("/productos", methods=["GET", "POST"])
@@ -59,7 +59,8 @@ def setMainRoutes(app=Flask):
         with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
             content = file.read()
             render = render_template_string(content)
-            pdfkit.from_string(content, "frontend/static/facturas/factura-"+id+".pdf")
+            pdfkit.from_string(
+                content, "frontend/static/facturas/factura-"+id+".pdf")
 
         return render_template("ventas.html", data=data)
 
@@ -75,6 +76,20 @@ def getData(byId, byName):
         "products_count": len(allProducts),
         "no_stock": [producto for producto in allProducts if producto['stock'] <= 0],
         "no_stock_count": len([producto for producto in allProducts if producto['stock'] <= 0])
+    }
+    return data
+
+def getDataSucursales(byId, byName):
+    allProducts = None
+    if (byId or byName):
+        allProducts = getMultipleProducts(sucursales, [byName, byId])
+    else:
+        allProducts = getAllProducts(sucursales)
+    data = {
+        "products": allProducts,
+        "products_count": len(allProducts),
+        #"no_stock": [producto for producto in allProducts if producto['stock'] <= 0],
+        #"no_stock_count": len([producto for producto in allProducts if producto['stock'] <= 0])
     }
     return data
 

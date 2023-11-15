@@ -183,6 +183,7 @@ def eliminarSucursal(nameDB, id):
     with open(str(nameDB) + ".json", 'w') as file2:
         json.dump(load, file2, indent=4)
 
+
 def getNextID(allIDs):
     ''' Obtiene la proxima id disponible en una lista de ids, buscando si hay huecos'''
     try:

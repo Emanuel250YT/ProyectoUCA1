@@ -38,5 +38,15 @@
         "categoria": "Ropa",
         "nombre": "a",
         "costo": 12
+    },
+    "4": {
+        "id": 4,
+        "descripcion": "a",
+        "precio": 12,
+        "descuento": 0,
+        "stock": 231,
+        "categoria": "Ropa",
+        "nombre": "a",
+        "costo": 1
     }
 }
