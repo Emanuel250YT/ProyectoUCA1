@@ -1,12 +1,12 @@
 {
     "0": {
         "id": 0,
-        "description": "A",
-        "price": 1,
-        "discount": 1,
-        "stock": "A",
-        "category": 1,
-        "name": "A",
-        "cost": 1
+        "description": "12",
+        "price": 12,
+        "discount": 12,
+        "stock": "12",
+        "category": 12,
+        "name": "12",
+        "cost": 12
     }
 }

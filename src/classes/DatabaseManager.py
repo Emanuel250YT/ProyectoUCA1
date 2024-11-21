@@ -23,7 +23,7 @@ class DatabaseManager:
                     product = tempList
                 return products
         except:
-            self.createDatabase(db)
+            self.CreateDatabase(db)
             return self.GetItems(db, perID, perName)
 
     def CreateProduct(self, id, name, description, price, discount, stock, category, cost):
@@ -55,10 +55,30 @@ class DatabaseManager:
         with open(fileDirection, 'w') as file:
             json.dump(a, file, indent=4)
 
-    def createDatabase(self, name):
+    def CreateDatabase(self, name):
         fileDirection = f"{self.baseFolder}\\src\\database\\{str(name)}.json"
         if os.path.isfile(fileDirection):
             print(f"El archivo '{fileDirection}' ya existe.")
             return
         with open(fileDirection, 'w') as file:
             json.dump({}, file)
+
+    def GetItem(self, db, id):
+        with open(f"{self.baseFolder}\\src\\database\\{str(db)}.json", 'r') as file:
+            load = json.load(file)
+            try:
+                if (load[id]):
+                    return load[id]
+            except:
+                return None
+
+    def DeleteItem(self, db, id):
+        with open(f"{self.baseFolder}\\src\\database\\{str(db)}.json", "r+") as file:
+            load = json.load(file)
+        try:
+            load.pop(id)
+
+            with open(f"{self.baseFolder}\\src\\database\\{str(db)}.json", 'w') as file:
+                json.dump(load, file, indent=4)
+        except KeyError:
+            print("No existe tal elemento!")

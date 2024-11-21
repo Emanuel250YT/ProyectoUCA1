@@ -13,7 +13,6 @@ class RouterHandlerManager():
             "Server", template_folder=baseFolder+"\\src\\templates", static_folder=baseFolder+"\\src\\static")
         self.informationManager = InformationManager.InformationManager(
             baseFolder)
-        self.databaseManager = DatabaseManager.DatabaseManager(baseFolder)
         self.setMainRoutes(self.app)
 
         print("created Server")
@@ -55,7 +54,7 @@ class RouterHandlerManager():
                     request.form.get("stock"))
                 cost = int(request.form.get("cost"))
 
-                self.databaseManager.CreateProduct(
+                self.informationManager.CreateProduct(
                     newID, name, description, price, discount, category, stock, cost)
 
                 return redirect("/producto/"+str(newID))
@@ -64,20 +63,34 @@ class RouterHandlerManager():
 
         @app.route("/producto/<id>", methods=["GET", "POST"])
         def product(id):
-            product = obtenerProducto(baseDatos, id)
-            data = obtenerInformacionProductos(None, None)
-            sucursales = obtenerInformacionSucursales(None)
-            ventas = obtenerInformacionVentas(None)
+            product = self.informationManager.GetProduct(id)
+            products = self.informationManager.GetProductsInfo(None, None)
+            branchs = self.informationManager.GetBranchsInfo(None)
+            sales = self.informationManager.GetSalesInfo(None)
 
             if (product == None):
                 return redirect("/productos")
             if (request.form):
-                borrarProducto(baseDatos, id)
-                crearProducto(nombreDB=baseDatos, id=id, name=request.form.get("nombre"), desc=request.form.get(
-                    "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
-                product = obtenerProducto(baseDatos, id)
 
-            return render_template("producto.html", product=product, data=data, sucursales=sucursales, ventas=ventas)
+                name = request.form.get("name")
+                description = request.form.get("description")
+                price = int(request.form.get("price"))
+                discount = int(request.form.get(
+                    "discount"))
+                category = request.form.get(
+                    "category")
+                stock = int(
+                    request.form.get("stock"))
+                cost = int(request.form.get("cost"))
+
+                self.informationManager.DeleteProduct(id)
+
+                self.informationManager.CreateProduct(
+                    id, name, description, price, discount, category, stock, cost)
+
+                product = self.informationManager.GetProduct(id)
+
+            return render_template("producto.html", product=product, products=products, branchs=branchs, sales=sales)
 
         @app.route("/producto_eliminar/<id>", methods=["GET"])
         def productDelete(id):
@@ -179,30 +192,6 @@ class RouterHandlerManager():
 
     def Start(self, port=80):
         self.app.run("127.0.0.1", port, debug=True)
-
-
-def obtenerProducto(nombreDB, producto):
-    ''' Permite obtener el diccionario del producto desde la BD'''
-    with open(str(nombreDB)+".json", 'r') as archivo:
-        load = json.load(archivo)
-        try:
-            if (load[producto]):
-                return load[producto]
-        except:
-            return None
-
-
-def borrarProducto(nombreDB, producto):
-    ''' Permite eliminar un producto mediante su nombre '''
-    with open(str(nombreDB)+".json", "r+") as archivo:
-        load = json.load(archivo)
-    try:
-        load.pop(producto)
-
-        with open(str(nombreDB)+".json", 'w') as archivo2:
-            json.dump(load, archivo2, indent=4)
-    except KeyError:
-        print("No existe tal elemento!")
 
 
 def borrarVariosProductos(nombreDB, productos):

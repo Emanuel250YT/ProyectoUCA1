@@ -50,3 +50,13 @@ class InformationManager:
             "total_cost": totalCost
         }
         return data
+
+    def CreateProduct(self, newID, name, description, price, discount, category, stock, cost):
+        self.databaseManager.CreateProduct(
+            newID, name, description, price, discount, category, stock, cost)
+
+    def GetProduct(self, id):
+        return self.databaseManager.GetItem(self.productsDB, id)
+
+    def DeleteProduct(self, id):
+        return self.databaseManager.DeleteItem(self.productsDB, id)
