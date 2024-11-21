@@ -116,6 +116,7 @@ def obtenerTodosLosProductos(db):
             listaProductos.append(load[producto])
         return listaProductos
 
+
 def editarProducto(db, id, objeto):
     ''' Permite editar productos, pasandole la id y un Object con las propiedades a modificar'''
     with open(str(db)+".json", "r") as archivo:
@@ -130,6 +131,7 @@ def editarProducto(db, id, objeto):
     except TypeError:
         print("Ese producto no existe!")
 
+
 def crearSucursal(nombreDB, id, detalles):
     ''' Permite crear sucursales, pasandole una id y un object con los atributos que tendrá la sucursal'''
     try:
@@ -137,7 +139,7 @@ def crearSucursal(nombreDB, id, detalles):
             load = json.load(archivo)
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         load = {}
-    
+
     if str(id) in load:
         return None
     data = detalles
@@ -146,6 +148,7 @@ def crearSucursal(nombreDB, id, detalles):
     load[str(id)] = data
     with open(str(nombreDB) + ".json", 'w') as archivo2:
         json.dump(load, archivo2, indent=4)
+
 
 def editarSucursal(nombreDB, id, detalles):
     ''' Permite editar una sucursal, pasandole la id y un object de los atributos a modificar'''
@@ -156,7 +159,7 @@ def editarSucursal(nombreDB, id, detalles):
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         print("La base", nombreDB, "no existe.")
         return None
-    if not(id in load):
+    if not (id in load):
         print("No se encontró el item con la id", id)
         return None
     for key in detalles:
@@ -164,6 +167,7 @@ def editarSucursal(nombreDB, id, detalles):
 
     with open(str(nombreDB) + ".json", 'w') as archivo2:
         json.dump(load, archivo2, indent=4)
+
 
 def eliminarSucursal(nombreDB, id):
     ''' Permite eliminar una sucursal con su id '''
@@ -174,7 +178,7 @@ def eliminarSucursal(nombreDB, id):
     except (json.decoder.JSONDecodeError, FileNotFoundError):
         print("La base", nombreDB, "no existe.")
         return None
-    if not(id in load):
+    if not (id in load):
         print("El producto", id, "no existe")
     load.pop(id)
 
@@ -190,64 +194,44 @@ def obtenerProximaID(todasLasIDs):
     except ValueError:
         return 0
 
+
 def nuevaVenta(nombreDB, id, detalles):
     ''' Crea una nueva venta para la sucursal con la id propocionada '''
     id = str(id)
     with open(str(nombreDB) + ".json", 'r') as archivo:
-            load = json.load(archivo)
-    if not(id in load):
+        load = json.load(archivo)
+    if not (id in load):
         print("No se encontró el item", id)
         return None
-    if not("ventas" in load[id]): # Si no hay categoría ventas, crear una
+    if not ("ventas" in load[id]):  # Si no hay categoría ventas, crear una
         load[id]["ventas"] = {}
-    nextID = obtenerProximaID(set(map(int, load[id]["ventas"].keys()))) # Obtiene la proxima ID disponible
+    # Obtiene la proxima ID disponible
+    nextID = obtenerProximaID(set(map(int, load[id]["ventas"].keys())))
     detalles["id"] = nextID
     load[id]["ventas"][str(nextID)] = detalles
     with open(str(nombreDB) + ".json", 'w') as archivo2:
         json.dump(load, archivo2, indent=4)
+
 
 def buscarVenta(nombreDB, sucursal, id):
     ''' Permite buscar una venta por su id '''
     sucursal = str(sucursal)
     id = str(id)
     with open(str(nombreDB) + ".json", 'r') as archivo:
-            load = json.load(archivo)
-    
-    if not(sucursal in load):
+        load = json.load(archivo)
+
+    if not (sucursal in load):
         print("No existe esa sucursal!")
         return None
-    if not(load[sucursal]["ventas"]):
+    if not (load[sucursal]["ventas"]):
         print("Esa sucursal no tiene ventas!")
         return None
-    if not(id in load[sucursal]["ventas"]):
+    if not (id in load[sucursal]["ventas"]):
         print("Esa venta no existe!")
         return None
-    
+
     return load[sucursal]["ventas"][id]
-    
-    
+
 
 baseDatos = "BaseDatos"
 sucursales = "Sucursales"
-
-# createNewDB("Sucursales") # Ya no es peligrosa
-
-# addProduct("BaseDatos", 1, "Comoda", "Comoda", 1399, None, 10, "Ropa", ["URL1", "URL2"])
-# addProduct("BaseDatos", 2, "Mesa", "Mesa", 1799, None, 10, "Hogar", ["URL1", "URL2"])
-
-# print(getProduct("BaseDatos", 2))
-
-# deleteProduct("BaseDatos", "c")
-
-# print(getMultipleProducts(baseDatos, [1, 2, 3]))
-
-# print (getAllProducts(baseDatos))
-# editProduct(baseDatos, "1", {"nombre": "emanuel gay"})
-
-# getNextID(baseDatos)
-# nuevaVenta(sucursales, 1, {"Producto": "Computadoras", "Cantidad": 1})
-# crearSucursal("Sucursales", 2, {"nombre": "Ucasal", "Compañeros":"Gays"})
-# editarSucursal(sucursales, 1, {"nombre": "Ucapop", "Productos": ["Libros", "Computadoras"]})
-# eliminarSucursal(sucursales, 1)
-
-# print(buscarVenta(sucursales, 1, 1))

@@ -3,7 +3,8 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 5vh 2vh;
+    padding: 10vh 2vh;
+
 }
 
 .btn {
@@ -12,7 +13,7 @@
     margin-right: 1vh;
 }
 
-.btnContainer {
+.row .btnContainer {
     display: flex;
     justify-content: left;
     align-content: center;

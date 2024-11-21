@@ -1,58 +1,58 @@
 <div class="col-4">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Productos</h5>
-            <ul class="content">
-                <li>
-                    <h6>{{data.products_count}} productos totales</h6>
-                </li>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Productos</h5>
+      <ul class="content">
+        <li>
+          <h6>{{data.products_count}} productos totales</h6>
+        </li>
 
-                <li>
-                    <h6>{{data.no_stock_count}} Agotados</h6>
-                </li>
+        <li>
+          <h6>{{data.no_stock_count}} Agotados</h6>
+        </li>
 
-            </ul>
-            <a href="/productos" class="btn btn-primary">Ver todos</a>
-        </div>
+      </ul>
+      <a href="/productos" class="btn btn-primary">Ver todos</a>
     </div>
+  </div>
 </div>
 <div class="col-4">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Sucursales</h5>
-            <ul class="content">
-                <li>
-                    <h6>{{sucursales.sucursales_count}} sucursales totales</h6>
-                </li>
-                <li>
-                    <h6>{{ventas["ventas_count"]}} ventas totales</h6>
-                </li>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Sucursales</h5>
+      <ul class="content">
+        <li>
+          <h6>{{sucursales.sucursales_count}} sucursales totales</h6>
+        </li>
+        <li>
+          <h6>{{ventas["ventas_count"]}} ventas totales</h6>
+        </li>
 
 
-            </ul>
-            <a href="/sucursales" class="btn btn-primary">Ver todas</a>
+      </ul>
+      <a href="/sucursales" class="btn btn-primary">Ver todas</a>
 
-        </div>
     </div>
+  </div>
 </div>
 <div class="col-4">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Ingresos</h5>
-            <ul class="content">
-                <li>
-                    <h6>{{ventas["total_ingresos"]}} ARS ingresos</h6>
-                </li>
-                <li>
-                    <h6>{{ventas["total_costo"]}} ARS costos</h6>
-                </li>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ventas</h5>
+      <ul class="content">
+        <li>
+          <h6>{{ventas["total_ingresos"]}} ARS ingresos</h6>
+        </li>
+        <li>
+          <h6>{{ventas["total_costo"]}} ARS costos</h6>
+        </li>
 
 
-            </ul>
-            <div class="btnContainer">
-                <a href="/ventas" class="btn btn-primary">Ver ventas</a>
-            </div>
+      </ul>
+      <div class="btnContainer">
+        <a href="/ventas" class="btn btn-primary">Ver ventas</a>
+      </div>
 
-        </div>
     </div>
+  </div>
 </div>
