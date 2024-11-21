@@ -48,7 +48,7 @@
               <label for="inputPassword6" class="col-form-label">Nombre</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="nombre" class="form-control" aria-describedby="passwordHelpInline" required>
+              <input type="text" id="inputPassword6" name="name" class="form-control" aria-describedby="passwordHelpInline" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -62,7 +62,7 @@
               <label for="inputPassword6" class="col-form-label">Descripción</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="desc" class="form-control" aria-describedby="passwordHelpInline" required>
+              <input type="text" id="inputPassword6" name="description" class="form-control" aria-describedby="passwordHelpInline" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -77,7 +77,7 @@
               <label for="inputPassword6" class="col-form-label">Productos</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="productos" class="form-control" aria-describedby="passwordHelpInline" required>
+              <input type="text" id="inputPassword6" name="products" class="form-control" aria-describedby="passwordHelpInline" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -108,15 +108,15 @@
           <tbody>
 
 
-            {% for elemento in sucursales["sucursales"] %}
+            {% for branch in branchs["branchs"] %}
             <tr>
               <td>
-                {{ elemento.id }}
+                {{ branchs["branchs"][branch].id }}
               </td>
               <td>
-                {{ elemento.nombre }}
+                {{ branchs["branchs"][branch].name }}
               </td>
-              <td><a href="/sucursal/{{elemento.id}}" class="btn btn-primary">Editar</a></td>
+              <td><a href="/sucursal/{{branch}}" class="btn btn-primary">Editar</a></td>
             </tr>
             {% endfor %}
 

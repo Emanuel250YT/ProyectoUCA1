@@ -7,7 +7,7 @@ class InformationManager:
         self.baseFolder = baseFolder
         self.databaseManager = DatabaseManager.DatabaseManager(baseFolder)
         self.productsDB = "products"
-        self.branchDB = "branch"
+        self.branchDB = "branchs"
         self.salesDB = "sales"
         print("created")
 
@@ -34,7 +34,7 @@ class InformationManager:
             self.branchDB, perID, None)
 
         data = {
-            "brachs": allBranchs,
+            "branchs": allBranchs,
             "branch_count": len(allBranchs),
         }
         return data
@@ -60,6 +60,9 @@ class InformationManager:
     def CreateProduct(self, newID, name, description, price, discount, category, stock, cost):
         self.databaseManager.CreateProduct(
             newID, name, description, price, discount, category, stock, cost)
+
+    def CreateBranch(self, id, details):
+        return self.databaseManager.CreateBranch(id, details)
 
     def GetProduct(self, id):
         return self.databaseManager.GetItem(self.productsDB, id)

@@ -82,3 +82,22 @@ class DatabaseManager:
                 json.dump(load, file, indent=4)
         except KeyError:
             print("No existe tal elemento!")
+
+    def CreateBranch(self, id, details):
+
+        fileDirection = f"{self.baseFolder}\\src\\database\\branchs.json"
+
+        try:
+            with open(fileDirection, 'r') as archivo:
+                load = json.load(archivo)
+        except (json.decoder.JSONDecodeError, FileNotFoundError):
+            load = {}
+
+        if str(id) in load:
+            return None
+        data = details
+        data["id"] = id
+
+        load[str(id)] = data
+        with open(fileDirection, 'w') as archivo2:
+            json.dump(load, archivo2, indent=4)

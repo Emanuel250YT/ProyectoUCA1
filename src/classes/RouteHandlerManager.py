@@ -40,8 +40,11 @@ class RouterHandlerManager():
                 newID = len(products["products"])
 
                 if (len(products["products"]) > 0):
-                    newID = int(
-                        max(products["products"], key=lambda x: x['id'])["id"]) + 1
+                    maxVal = 0
+                    for product in products["products"]:
+                        if (maxVal < int(products["products"][product]["id"])):
+                            maxVal = int(products["products"][product]["id"])
+                            newID = maxVal+1
 
                 name = request.form.get("name")
                 description = request.form.get("description")
@@ -94,29 +97,41 @@ class RouterHandlerManager():
 
         @app.route("/producto_eliminar/<id>", methods=["GET"])
         def productDelete(id):
-            product = obtenerProducto(baseDatos, id)
-            data = obtenerInformacionProductos(None, None)
+            product = self.informationManager.GetProduct(id)
             if (product != None):
-                borrarProducto(baseDatos, id)
+                self.informationManager.DeleteProduct(id)
                 return redirect("/productos")
 
         @app.route("/sucursales", methods=["GET", "POST"])
         def sucursales():
-            porID = request.args.get("id")
-            data = obtenerInformacionProductos(None, None)
-            sucursales = obtenerInformacionSucursales(porID=porID)
-            ventas = obtenerInformacionVentas(None)
+            perID = request.args.get("id")
+            products = self.informationManager.GetProductsInfo(None, None)
+            branchs = self.informationManager.GetBranchsInfo([perID])
+            sales = self.informationManager.GetSalesInfo(None)
+
             if (request.form):
-                newID = int(max(sucursales["sucursales"],
-                            key=lambda x: x['id'])["id"]) + 1
-                crearSucursal(nombreDB="Sucursales", id=newID, detalles={
+
+                newID = len(branchs["branchs"])
+
+                if (len(branchs["branchs"]) > 0):
+                    maxVal = 0
+                    for branch in branchs["products"]:
+                        if (maxVal < int(branchs["branchs"][branch]["id"])):
+                            maxVal = int(branchs["branchs"][branch]["id"])
+                            newID = maxVal+1
+
+                self.informationManager.CreateBranch(id=newID, details={
                     "id": newID,
-                    "productos": request.form.get("productos").split(" "),
-                    "description": request.form.get("desc"),
-                    "nombre": request.form.get("nombre")
+                    "products": request.form.get("products").split(" "),
+                    "description": request.form.get("description"),
+                    "name": request.form.get("name")
                 })
+
                 return redirect("/sucursal/"+str(newID))
-            return render_template("sucursales.html", data=data, sucursales=sucursales, ventas=ventas)
+
+            return render_template("sucursales.html", products=products, branchs=branchs, sales=sales)
+
+        # FIXED
 
         @app.route("/sucursal/<id>", methods=["GET", "POST"])
         def sucursal(id):
@@ -243,24 +258,6 @@ def editarProducto(db, id, objeto):
             json.dump(load, archivo2, indent=4)
     except TypeError:
         print("Ese producto no existe!")
-
-
-def crearSucursal(nombreDB, id, detalles):
-    ''' Permite crear sucursales, pasandole una id y un object con los atributos que tendrá la sucursal'''
-    try:
-        with open(str(nombreDB) + ".json", 'r') as archivo:
-            load = json.load(archivo)
-    except (json.decoder.JSONDecodeError, FileNotFoundError):
-        load = {}
-
-    if str(id) in load:
-        return None
-    data = detalles
-    data["id"] = id
-
-    load[str(id)] = data
-    with open(str(nombreDB) + ".json", 'w') as archivo2:
-        json.dump(load, archivo2, indent=4)
 
 
 def editarSucursal(nombreDB, id, detalles):
