@@ -11,16 +11,16 @@ class DatabaseManager:
             with open(f"{self.baseFolder}\\src\\database\\{str(db)}.json", 'r') as file:
                 tempList = json.load(file)
                 products = []
-                if (perID):
+                if (perID and len(perID) >= 1 and perID[0] != None):
                     for product in tempList:
                         if (product["id"] in perID):
                             products.append(product)
-                if (perName):
+                elif (perName and len(perName) >= 1 and perName[0] != None):
                     for product in tempList:
                         if (product["name"] in perName):
                             products.append(product)
-                if (not perName and not perID):
-                    product = tempList
+                else:
+                    products = tempList
                 return products
         except:
             self.CreateDatabase(db)

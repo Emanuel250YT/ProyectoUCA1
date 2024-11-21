@@ -15,11 +15,17 @@ class InformationManager:
         allProducts = self.databaseManager.GetItems(
             self.productsDB, perID, perName)
 
+        noStock = []
+
+        for productID in allProducts:
+            if (int(allProducts[productID]["stock"]) <= 0):
+                noStock.append(allProducts[productID])
+
         data = {
             "products": allProducts,
             "products_count": len(allProducts),
-            "no_stock": [product for product in allProducts if product['stock'] <= 0],
-            "no_stock_count": len([product for product in allProducts if product['stock'] <= 0])
+            "no_stock": noStock,
+            "no_stock_count": len(noStock)
         }
         return data
 

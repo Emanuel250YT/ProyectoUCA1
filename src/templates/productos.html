@@ -174,27 +174,27 @@
             {% for product in products["products"] %}
             <tr>
               <td>
-                {{ product.id }}
+                {{ products["products"][product].id }}
               </td>
               <td>
-                {{ product.name }}
+                {{ products["products"][product].name }}
               </td>
               <td>
-                {{ product.description }}
+                {{ products["products"][product].description }}
               </td>
               <td>$
-                {{ product.price }} USD
+                {{ products["products"][product].price }} USD
               </td>
               <td>
-                {{ product.stock }}
+                {{ products["products"][product].stock }}
               </td>
               <td>
-                {{ product.discount }}
+                {{ products["products"][product].discount }}
               </td>
               <td>
-                {{ product.category }}
+                {{ products["products"][product].category }}
               </td>
-              <td><a href="/producto/{{product.id}}" class="btn btn-primary">Editar</a></td>
+              <td><a href="/producto/{{product}}" class="btn btn-primary">Editar</a></td>
             </tr>
             {% endfor %}
 
