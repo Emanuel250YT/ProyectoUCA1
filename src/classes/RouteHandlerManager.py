@@ -131,49 +131,50 @@ class RouterHandlerManager():
 
             return render_template("sucursales.html", products=products, branchs=branchs, sales=sales)
 
-        # FIXED
-
         @app.route("/sucursal/<id>", methods=["GET", "POST"])
         def sucursal(id):
-            product = obtenerProducto("Sucursales", id)
-            data = obtenerInformacionProductos(None, None)
-            sucursales = obtenerInformacionSucursales(None)
-            ventas = obtenerInformacionVentas(None)
+            currentBranch = self.informationManager.GetBranch(id)
+            products = self.informationManager.GetProductsInfo(None, None)
+            branchs = self.informationManager.GetBranchsInfo(None)
+            sales = self.informationManager.GetSalesInfo(None)
 
             if (product == None):
                 return redirect("/productos")
             if (request.form):
-                eliminarSucursal("Sucursales", id)
-                crearSucursal(nombreDB="Sucursales", id=id, detalles={
+
+                self.informationManager.DeleteBranch(id)
+                self.informationManager.CreateBranch(id, details={
                     "id": id,
-                    "productos": request.form.get("productos").split(" "),
-                    "description": request.form.get("desc"),
-                    "nombre": request.form.get("nombre")
+                    "products": request.form.get("products").split(" "),
+                    "description": request.form.get("description"),
+                    "name": request.form.get("name")
                 })
 
-                product = obtenerProducto("Sucursales", id)
+                currentBranch = self.informationManager.GetBranch(id)
 
-            return render_template("sucursal.html", sucursal=product, data=data, sucursales=sucursales, ventas=ventas)
+            return render_template("sucursal.html", branch=currentBranch, products=products, branchs=branchs, sales=sales)
 
         @app.route("/sucursal_eliminar/<id>", methods=["GET"])
         def sucursalDelete(id):
-            product = obtenerProducto("Sucursales", id)
-            data = obtenerInformacionSucursales(None)
-            if (product != None):
-                eliminarSucursal("Sucursales", id)
+            branch = self.informationManager.GetBranch(id)
+            if (branch != None):
+                self.informationManager.DeleteBranch(id)
                 return redirect("/sucursales")
+
+        # FIXED
 
         @app.route("/ventas", methods=["GET", "POST"])
         def ventas():
-            porID = request.args.get("id")
-            data = obtenerInformacionProductos(None, None)
-            sucursales = obtenerInformacionSucursales(None)
-            ventas = obtenerInformacionVentas(None)
-            v = obtenerInformacionVentas(porID)
+            perID = request.args.get("id")
+            products = self.informationManager.GetProductsInfo(None, None)
+            branchs = self.informationManager.GetBranchsInfo(None)
+            sales = self.informationManager.GetSalesInfo(None)
 
             productosVendidos = []
+
             sucursalObjetivo = obtenerInformacionSucursales(
                 request.form.get("sucursal"))["sucursales"][0]
+
             if (request.form):
                 newID = 0
                 if (v["ventas_count"] > 0):

@@ -27,7 +27,7 @@
               <label for="inputPassword6" class="col-form-label">Nombre</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="name" required value="{{product.nombre}}">
+              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="name" required value="{{product.name}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -41,7 +41,7 @@
               <label for="inputPassword6" class="col-form-label">Descripción</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="description" class="form-control" aria-describedby="passwordHelpInline" required value="{{product.descripcion}}">
+              <input type="text" id="inputPassword6" name="description" class="form-control" aria-describedby="passwordHelpInline" required value="{{product.description}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -55,7 +55,7 @@
               <label for="inputPassword6" class="col-form-label">Precio</label>
             </div>
             <div class="col-auto">
-              <input type="number" id="inputPassword6" name="price" class="form-control" aria-describedby="passwordHelpInline" required value="{{product.precio}}">
+              <input type="number" id="inputPassword6" name="price" class="form-control" aria-describedby="passwordHelpInline" required value="{{product.price}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -69,7 +69,7 @@
               <label for="inputPassword6" class="col-form-label">Costo</label>
             </div>
             <div class="col-auto">
-              <input type="number" id="inputPassword6" name="cost" class="form-control" aria-describedby="passwordHelpInline" required value="{{product.costo}}">
+              <input type="number" id="inputPassword6" name="cost" class="form-control" aria-describedby="passwordHelpInline" required value="{{product.cost}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -83,7 +83,7 @@
               <label for="inputPassword6" class="col-form-label">Descuento</label>
             </div>
             <div class="col-auto">
-              <input type="number" id="inputPassword6" name="discount" class="form-control" aria-describedby="passwordHelpInline" max="100" min="0" required value="{{product.descuento}}">
+              <input type="number" id="inputPassword6" name="discount" class="form-control" aria-describedby="passwordHelpInline" max="100" min="0" required value="{{product.discount}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -97,7 +97,7 @@
               <label for="inputPassword6" class="col-form-label">Categoría</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="category" required value="{{product.categoria}}">
+              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="category" required value="{{product.category}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -121,6 +121,7 @@
           </div>
           <br>
           <input type="submit" value="Editar" class="btn btn-primary">
+          <a href="/productos" class="btn btn-primary">Atrás</a>
           <a href="/producto_eliminar/{{product.id}}" class="btn btn-danger">Eliminar</a>
         </form>
 

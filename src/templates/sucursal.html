@@ -27,7 +27,7 @@
               <label for="inputPassword6" class="col-form-label">Nombre</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="nombre" class="form-control" aria-describedby="passwordHelpInline" required value="{{sucursal.nombre}}">
+              <input type="text" id="inputPassword6" name="name" class="form-control" aria-describedby="passwordHelpInline" required value="{{branch.name}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -41,7 +41,7 @@
               <label for="inputPassword6" class="col-form-label">Descripción</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="desc" class="form-control" aria-describedby="passwordHelpInline" required value="{{sucursal.description}}">
+              <input type="text" id="inputPassword6" name="description" class="form-control" aria-describedby="passwordHelpInline" required value="{{branch.description}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -56,7 +56,7 @@
               <label for="inputPassword6" class="col-form-label">Productos</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="productos" class="form-control" aria-describedby="passwordHelpInline" required value="{{' '.join(sucursal.productos)}}">
+              <input type="text" id="inputPassword6" name="products" class="form-control" aria-describedby="passwordHelpInline" required value="{{' '.join(branch.products)}}">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -67,7 +67,9 @@
 
           <br>
           <input type="submit" value="Crear" class="btn btn-primary">
-          <a href="/sucursal_eliminar/{{sucursal.id}}" class="btn btn-danger">Eliminar</a>
+          <a href="/productos" class="btn btn-primary">Atrás</a>
+
+          <a href="/sucursal_eliminar/{{branch.id}}" class="btn btn-danger">Eliminar</a>
 
         </form>
 

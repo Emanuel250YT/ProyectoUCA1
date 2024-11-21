@@ -67,5 +67,11 @@ class InformationManager:
     def GetProduct(self, id):
         return self.databaseManager.GetItem(self.productsDB, id)
 
+    def GetBranch(self, id):
+        return self.databaseManager.GetItem(self.branchDB, id)
+
     def DeleteProduct(self, id):
         return self.databaseManager.DeleteItem(self.productsDB, id)
+
+    def DeleteBranch(self, id):
+        return self.databaseManager.DeleteItem(self.branchDB, id)
