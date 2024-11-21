@@ -21,10 +21,39 @@ class DatabaseManager:
                             products.append(product)
                 if (not perName and not perID):
                     product = tempList
-                return product
+                return products
         except:
             self.createDatabase(db)
             return self.GetItems(db, perID, perName)
+
+    def CreateProduct(self, id, name, description, price, discount, stock, category, cost):
+
+        fileDirection = f"{self.baseFolder}\\src\\database\\products.json"
+
+        data = {
+            "id": int(id),
+            "description": description,
+            "price": price,
+            "discount": discount,
+            "stock": stock,
+            "category": category,
+            "name": name,
+            "cost": cost
+        }
+
+        try:
+            with open(fileDirection, 'r') as file:
+                a = json.load(file)
+        except (json.decoder.JSONDecodeError, FileNotFoundError):
+            a = {}
+
+        if id in a:
+            return None
+
+        a[id] = data
+
+        with open(fileDirection, 'w') as file:
+            json.dump(a, file, indent=4)
 
     def createDatabase(self, name):
         fileDirection = f"{self.baseFolder}\\src\\database\\{str(name)}.json"

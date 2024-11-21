@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, render_template_str
 import pdfkit
 from datetime import datetime
 
-from src.classes import InformationManager
+from src.classes import DatabaseManager, InformationManager
 
 
 class RouterHandlerManager():
@@ -13,6 +13,7 @@ class RouterHandlerManager():
             "Server", template_folder=baseFolder+"\\src\\templates", static_folder=baseFolder+"\\src\\static")
         self.informationManager = InformationManager.InformationManager(
             baseFolder)
+        self.databaseManager = DatabaseManager.DatabaseManager(baseFolder)
         self.setMainRoutes(self.app)
 
         print("created Server")
@@ -28,18 +29,38 @@ class RouterHandlerManager():
 
         @app.route("/productos", methods=["GET", "POST"])
         def products():
-            porID = request.args.get("id")
-            porNombre = request.args.get("name")
-            data = obtenerInformacionProductos(porID, porNombre)
-            sucursales = obtenerInformacionSucursales(None)
-            ventas = obtenerInformacionVentas(None)
+            perID = request.args.get("id")
+            perName = request.args.get("name")
+            products = self.informationManager.GetProductsInfo([perID], [
+                                                               perName])
+            branchs = self.informationManager.GetBranchsInfo(None)
+            sales = self.informationManager.GetSalesInfo(None)
+
             if (request.form):
-                newID = int(
-                    max(data["products"], key=lambda x: x['id'])["id"]) + 1
-                crearProducto(nombreDB=baseDatos, id=newID, name=request.form.get("nombre"), desc=request.form.get(
-                    "desc"), price=int(request.form.get("price")), descuento=int(request.form.get("descuento")), categ=request.form.get("categoria"), stock=int(request.form.get("stock")), costo=int(request.form.get("costo")))
+
+                newID = len(products["products"])
+
+                if (len(products["products"]) > 0):
+                    newID = int(
+                        max(products["products"], key=lambda x: x['id'])["id"]) + 1
+
+                name = request.form.get("name")
+                description = request.form.get("description")
+                price = int(request.form.get("price"))
+                discount = int(request.form.get(
+                    "discount"))
+                category = request.form.get(
+                    "category")
+                stock = int(
+                    request.form.get("stock"))
+                cost = int(request.form.get("cost"))
+
+                self.databaseManager.CreateProduct(
+                    newID, name, description, price, discount, category, stock, cost)
+
                 return redirect("/producto/"+str(newID))
-            return render_template("productos.html", data=data, sucursales=sucursales, ventas=ventas)
+
+            return render_template("productos.html", products=products, branchs=branchs, sales=sales)
 
         @app.route("/producto/<id>", methods=["GET", "POST"])
         def product(id):
@@ -158,34 +179,6 @@ class RouterHandlerManager():
 
     def Start(self, port=80):
         self.app.run("127.0.0.1", port, debug=True)
-
-
-def crearProducto(nombreDB, id, nombre, desc, price, descuento, stock, categ, costo):
-    ''' Permite añadir un nuevo producto a la base de datos especificada'''
-    data = {
-        "id": int(id),
-        "descripcion": desc,
-        "precio": price,
-        "descuento": descuento,
-        "stock": stock,
-        "categoria": categ,
-        "nombre": nombre,
-        "costo": costo
-    }
-
-    try:
-        with open(str(nombreDB) + ".json", 'r') as archivo:
-            a = json.load(archivo)
-    except (json.decoder.JSONDecodeError, FileNotFoundError):
-        a = {}
-
-    if id in a:
-        return None
-
-    a[id] = data
-
-    with open(str(nombreDB) + ".json", 'w') as archivo2:
-        json.dump(a, archivo2, indent=4)
 
 
 def obtenerProducto(nombreDB, producto):

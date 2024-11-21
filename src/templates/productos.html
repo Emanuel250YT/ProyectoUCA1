@@ -23,7 +23,7 @@
       <div class="col-12">
         <form class="row g-3">
           <div class="col-3">
-            <label for="staticEmail2" class="visually-hidden">Email</label>
+            <label for="staticEmail2" class="visually-hidden">ID</label>
             <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Buscar Producto por ID o nombre">
           </div>
           <div class="col-auto">
@@ -52,7 +52,7 @@
               <label for="inputPassword6" class="col-form-label">Nombre</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="nombre" required>
+              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="name" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -66,7 +66,7 @@
               <label for="inputPassword6" class="col-form-label">Descripción</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="desc" class="form-control" aria-describedby="passwordHelpInline" required>
+              <input type="text" id="inputPassword6" name="description" class="form-control" aria-describedby="passwordHelpInline" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -94,7 +94,7 @@
               <label for="inputPassword6" class="col-form-label">Costo</label>
             </div>
             <div class="col-auto">
-              <input type="number" id="inputPassword6" name="costo" class="form-control" aria-describedby="passwordHelpInline" required>
+              <input type="number" id="inputPassword6" name="cost" class="form-control" aria-describedby="passwordHelpInline" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -108,7 +108,7 @@
               <label for="inputPassword6" class="col-form-label">Descuento</label>
             </div>
             <div class="col-auto">
-              <input type="number" id="inputPassword6" name="descuento" class="form-control" aria-describedby="passwordHelpInline" max="100" min="0" required>
+              <input type="number" id="inputPassword6" name="discount" class="form-control" aria-describedby="passwordHelpInline" max="100" min="0" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -122,7 +122,7 @@
               <label for="inputPassword6" class="col-form-label">Categoría</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="categoria" required>
+              <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="category" required>
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -171,30 +171,30 @@
           <tbody>
 
 
-            {% for elemento in data["products"] %}
+            {% for product in products["products"] %}
             <tr>
               <td>
-                {{ elemento.id }}
+                {{ product.id }}
               </td>
               <td>
-                {{ elemento.nombre }}
+                {{ product.name }}
               </td>
               <td>
-                {{ elemento.descripcion }}
+                {{ product.description }}
               </td>
               <td>$
-                {{ elemento.precio }} USD
+                {{ product.price }} USD
               </td>
               <td>
-                {{ elemento.stock }}
+                {{ product.stock }}
               </td>
               <td>
-                {{ elemento.descuento }}
+                {{ product.discount }}
               </td>
               <td>
-                {{ elemento.categoria }}
+                {{ product.category }}
               </td>
-              <td><a href="/producto/{{elemento.id}}" class="btn btn-primary">Editar</a></td>
+              <td><a href="/producto/{{product.id}}" class="btn btn-primary">Editar</a></td>
             </tr>
             {% endfor %}
 
