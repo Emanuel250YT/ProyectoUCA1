@@ -182,13 +182,17 @@ class RouterHandlerManager():
                 productsToSold = self.informationManager.GetProductsInfo(request.form.get("products").split(" "), [
                                                                          None])
 
-                self.informationManager.CreateSale(newID, details={
+                details = {
                     "id": newID,
                     "date": datetime.now().strftime("%d/%m/%y %H:%M:%S"),
                     "client": request.form.get("client"),
                     "branch": request.form.get("branch"),
                     "products": productsToSold
-                })
+                }
+
+                print(details)
+
+                self.informationManager.CreateSale(newID, details=details)
 
                 return redirect("/ventas")
             return render_template("ventas.html", products=products, branchs=branchs, sales=sales)

@@ -1,7 +1,7 @@
 {
     "0": {
         "id": 0,
-        "date": "22/11/24 15:18:58",
+        "date": "22/11/24 16:24:09",
         "client": "Emanuel",
         "branch": "0",
         "products": {
@@ -14,7 +14,8 @@
                     "stock": "4",
                     "category": 4,
                     "name": "4",
-                    "cost": 4
+                    "cost": 4,
+                    "randomUUID": 918474756
                 }
             ],
             "products_count": 1,
@@ -24,7 +25,7 @@
     },
     "1": {
         "id": 1,
-        "date": "22/11/24 15:21:33",
+        "date": "22/11/24 16:33:50",
         "client": "Emanuel",
         "branch": "0",
         "products": {
@@ -37,7 +38,8 @@
                     "stock": "4",
                     "category": 4,
                     "name": "4",
-                    "cost": 4
+                    "cost": 4,
+                    "randomUUID": 555568082
                 }
             ],
             "products_count": 1,
@@ -47,7 +49,7 @@
     },
     "2": {
         "id": 2,
-        "date": "22/11/24 15:22:01",
+        "date": "22/11/24 16:36:19",
         "client": "Emanuel",
         "branch": "0",
         "products": {
@@ -60,21 +62,9 @@
                     "stock": "4",
                     "category": 4,
                     "name": "4",
-                    "cost": 4
-                }
-            ],
-            "products_count": 1,
-            "no_stock": [],
-            "no_stock_count": 0
-        }
-    },
-    "3": {
-        "id": 3,
-        "date": "22/11/24 15:24:12",
-        "client": "Emanuel",
-        "branch": "0",
-        "products": {
-            "products": [
+                    "cost": 4,
+                    "randomUUID": 8110642
+                },
                 {
                     "id": 3,
                     "description": "4",
@@ -83,10 +73,33 @@
                     "stock": "4",
                     "category": 4,
                     "name": "4",
-                    "cost": 4
+                    "cost": 4,
+                    "randomUUID": 910368090
+                },
+                {
+                    "id": 3,
+                    "description": "4",
+                    "price": 4,
+                    "discount": 4,
+                    "stock": "4",
+                    "category": 4,
+                    "name": "4",
+                    "cost": 4,
+                    "randomUUID": 525929188
+                },
+                {
+                    "id": 3,
+                    "description": "4",
+                    "price": 4,
+                    "discount": 4,
+                    "stock": "4",
+                    "category": 4,
+                    "name": "4",
+                    "cost": 4,
+                    "randomUUID": 397260423
                 }
             ],
-            "products_count": 1,
+            "products_count": 4,
             "no_stock": [],
             "no_stock_count": 0
         }
