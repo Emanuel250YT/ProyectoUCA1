@@ -18,8 +18,13 @@ class InformationManager:
         noStock = []
 
         for productID in allProducts:
-            if (int(allProducts[productID]["stock"]) <= 0):
-                noStock.append(allProducts[productID])
+
+            if (type(productID) is int or type(productID) is str):
+                if (int(allProducts[str(productID)]["stock"]) <= 0):
+                    noStock.append(allProducts[productID])
+            else:
+                if (int(productID["stock"]) <= 0):
+                    noStock.append(allProducts[productID])
 
         data = {
             "products": allProducts,
@@ -46,8 +51,9 @@ class InformationManager:
         totalIncome = 0
 
         for sale in allSales:
-            totalCost += sum(v["cost"] for v in sale["products"])
-            totalIncome += sum(v["price"] for v in sale["products"])
+            for product in allSales[sale]["products"]["products"]:
+                totalCost += int(product["cost"])
+                totalIncome += int(product["price"])
 
         data = {
             "sales": allSales,
@@ -64,11 +70,17 @@ class InformationManager:
     def CreateBranch(self, id, details):
         return self.databaseManager.CreateBranch(id, details)
 
+    def CreateSale(self, id, details):
+        return self.databaseManager.CreateSale(id, details)
+
     def GetProduct(self, id):
         return self.databaseManager.GetItem(self.productsDB, id)
 
     def GetBranch(self, id):
         return self.databaseManager.GetItem(self.branchDB, id)
+
+    def GetSale(self, id):
+        return self.databaseManager.GetItem(self.salesDB, id)
 
     def DeleteProduct(self, id):
         return self.databaseManager.DeleteItem(self.productsDB, id)

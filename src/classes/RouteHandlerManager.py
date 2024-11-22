@@ -24,7 +24,7 @@ class RouterHandlerManager():
             branchs = self.informationManager.GetBranchsInfo(None)
             sales = self.informationManager.GetSalesInfo(None)
 
-            return render_template("index.html", products=products, branch=branchs, sales=sales)
+            return render_template("index.html", products=products, branchs=branchs, sales=sales)
 
         @app.route("/productos", methods=["GET", "POST"])
         def products():
@@ -165,30 +165,33 @@ class RouterHandlerManager():
 
         @app.route("/ventas", methods=["GET", "POST"])
         def ventas():
-            perID = request.args.get("id")
             products = self.informationManager.GetProductsInfo(None, None)
             branchs = self.informationManager.GetBranchsInfo(None)
             sales = self.informationManager.GetSalesInfo(None)
 
-            productosVendidos = []
-
-            sucursalObjetivo = obtenerInformacionSucursales(
-                request.form.get("sucursal"))["sucursales"][0]
-
             if (request.form):
-                newID = 0
-                if (v["ventas_count"] > 0):
-                    newID = int(max(v["ventas"],
-                                    key=lambda x: x['id'])["id"]) + 1
-                crearSucursal("Ventas", newID, detalles={
+                newID = len(sales["sales"])
+
+                if (len(sales["sales"]) > 0):
+                    maxVal = 0
+                    for sale in sales["sales"]:
+                        if (maxVal < int(sales["sales"][sale]["id"])):
+                            maxVal = int(sales["sales"][sale]["id"])
+                            newID = maxVal+1
+
+                productsToSold = self.informationManager.GetProductsInfo(request.form.get("products").split(" "), [
+                                                                         None])
+
+                self.informationManager.CreateSale(newID, details={
                     "id": newID,
-                    "fecha": datetime.now().strftime("%d/%m/%y %H:%M:%S"),
-                    "beneficiario": request.form.get("beneficiario"),
-                    "sucursal": sucursalObjetivo,
-                    "productos": obtenerVariosProductos("BaseDatos", request.form.get("productos").split(" "))
+                    "date": datetime.now().strftime("%d/%m/%y %H:%M:%S"),
+                    "client": request.form.get("client"),
+                    "branch": request.form.get("branch"),
+                    "products": productsToSold
                 })
-                # return redirect("/venta/"+str(newID))
-            return render_template("ventas.html", data=data, sucursales=sucursales, ventas=ventas)
+
+                return redirect("/ventas")
+            return render_template("ventas.html", products=products, branchs=branchs, sales=sales)
 
         @app.route("/facturas/<id>")
         def facturas(id):
@@ -208,141 +211,3 @@ class RouterHandlerManager():
 
     def Start(self, port=80):
         self.app.run("127.0.0.1", port, debug=True)
-
-
-def borrarVariosProductos(nombreDB, productos):
-    ''' Permite eliminar varios productos pasandole un array de sus nombres '''
-    with open(str(nombreDB)+".json", "r+") as archivo:
-        load = json.load(archivo)
-    for producto in productos:
-        try:
-            load.pop(producto)
-        except KeyError:
-            print("No existe el elemento", producto)
-
-    with open(str(nombreDB)+".json", 'w') as archivo2:
-        json.dump(load, archivo2, indent=4)
-
-
-def obtenerAtributo(db, nombreProducto, atributo):
-    ''' Permite buscar atributos de un producto '''
-    product = obtenerProducto(db, nombreProducto)
-    if product == None:
-        print("Ese producto no existe")
-        return
-    try:
-        return product[atributo]
-    except KeyError:
-        print("El producto", nombreProducto, "no tiene", atributo)
-
-
-def obtenerTodosLosProductos(db):
-    ''' Devuelve todos los productos '''
-    with open(str(db)+".json", 'r') as archivo:
-        load = json.load(archivo)
-        listaProductos = []
-        for producto in load:
-            listaProductos.append(load[producto])
-        return listaProductos
-
-
-def editarProducto(db, id, objeto):
-    ''' Permite editar productos, pasandole la id y un Object con las propiedades a modificar'''
-    with open(str(db)+".json", "r") as archivo:
-        load = json.load(archivo)
-    productoOriginal = load[id]
-    try:
-        for key in object:
-            productoOriginal[key] = object[key]
-        load[id] = productoOriginal
-        with open(str(db)+".json", 'w') as archivo2:
-            json.dump(load, archivo2, indent=4)
-    except TypeError:
-        print("Ese producto no existe!")
-
-
-def editarSucursal(nombreDB, id, detalles):
-    ''' Permite editar una sucursal, pasandole la id y un object de los atributos a modificar'''
-    id = str(id)
-    try:
-        with open(str(nombreDB) + ".json", 'r') as archivo:
-            load = json.load(archivo)
-    except (json.decoder.JSONDecodeError, FileNotFoundError):
-        print("La base", nombreDB, "no existe.")
-        return None
-    if not (id in load):
-        print("No se encontró el item con la id", id)
-        return None
-    for key in detalles:
-        load[id][key] = detalles[key]
-
-    with open(str(nombreDB) + ".json", 'w') as archivo2:
-        json.dump(load, archivo2, indent=4)
-
-
-def eliminarSucursal(nombreDB, id):
-    ''' Permite eliminar una sucursal con su id '''
-    id = str(id)
-    try:
-        with open(str(nombreDB) + ".json", 'r') as archivo:
-            load = json.load(archivo)
-    except (json.decoder.JSONDecodeError, FileNotFoundError):
-        print("La base", nombreDB, "no existe.")
-        return None
-    if not (id in load):
-        print("El producto", id, "no existe")
-    load.pop(id)
-
-    with open(str(nombreDB) + ".json", 'w') as archivo2:
-        json.dump(load, archivo2, indent=4)
-
-
-def obtenerProximaID(todasLasIDs):
-    ''' Obtiene la proxima id disponible en una lista de ids, buscando si hay huecos'''
-    try:
-        nextID = min(set(range(1, max(todasLasIDs) + 2)) - todasLasIDs)
-        return nextID
-    except ValueError:
-        return 0
-
-
-def nuevaVenta(nombreDB, id, detalles):
-    ''' Crea una nueva venta para la sucursal con la id propocionada '''
-    id = str(id)
-    with open(str(nombreDB) + ".json", 'r') as archivo:
-        load = json.load(archivo)
-    if not (id in load):
-        print("No se encontró el item", id)
-        return None
-    if not ("ventas" in load[id]):  # Si no hay categoría ventas, crear una
-        load[id]["ventas"] = {}
-    # Obtiene la proxima ID disponible
-    nextID = obtenerProximaID(set(map(int, load[id]["ventas"].keys())))
-    detalles["id"] = nextID
-    load[id]["ventas"][str(nextID)] = detalles
-    with open(str(nombreDB) + ".json", 'w') as archivo2:
-        json.dump(load, archivo2, indent=4)
-
-
-def buscarVenta(nombreDB, sucursal, id):
-    ''' Permite buscar una venta por su id '''
-    sucursal = str(sucursal)
-    id = str(id)
-    with open(str(nombreDB) + ".json", 'r') as archivo:
-        load = json.load(archivo)
-
-    if not (sucursal in load):
-        print("No existe esa sucursal!")
-        return None
-    if not (load[sucursal]["ventas"]):
-        print("Esa sucursal no tiene ventas!")
-        return None
-    if not (id in load[sucursal]["ventas"]):
-        print("Esa venta no existe!")
-        return None
-
-    return load[sucursal]["ventas"][id]
-
-
-baseDatos = "BaseDatos"
-sucursales = "Sucursales"

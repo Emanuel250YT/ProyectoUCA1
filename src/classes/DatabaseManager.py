@@ -11,16 +11,30 @@ class DatabaseManager:
             with open(f"{self.baseFolder}\\src\\database\\{str(db)}.json", 'r') as file:
                 tempList = json.load(file)
                 products = []
-                if (perID and len(perID) >= 1 and perID[0] != None):
+                parsedIDs = []
+                parsedNames = []
+
+                if (perID != None):
+                    for id in perID:
+                        if (id != None and len(id) > 0):
+                            parsedIDs.append(int(id))
+
+                if (perName != None):
+                    for id in perID:
+                        if (id != None and len(id) > 0):
+                            parsedNames.append(id)
+
+                if (len(parsedIDs) > 0):
                     for product in tempList:
-                        if (product["id"] in perID):
-                            products.append(product)
-                elif (perName and len(perName) >= 1 and perName[0] != None):
+                        if (tempList[product]["id"] in parsedIDs):
+                            products.append(tempList[product])
+                elif (len(parsedNames) > 0):
                     for product in tempList:
-                        if (product["name"] in perName):
-                            products.append(product)
+                        if (tempList[product]["name"] in parsedNames):
+                            products.append(tempList[product])
                 else:
                     products = tempList
+                print(products)
                 return products
         except:
             self.CreateDatabase(db)
@@ -86,6 +100,25 @@ class DatabaseManager:
     def CreateBranch(self, id, details):
 
         fileDirection = f"{self.baseFolder}\\src\\database\\branchs.json"
+
+        try:
+            with open(fileDirection, 'r') as archivo:
+                load = json.load(archivo)
+        except (json.decoder.JSONDecodeError, FileNotFoundError):
+            load = {}
+
+        if str(id) in load:
+            return None
+        data = details
+        data["id"] = id
+
+        load[str(id)] = data
+        with open(fileDirection, 'w') as archivo2:
+            json.dump(load, archivo2, indent=4)
+
+    def CreateSale(self, id, details):
+
+        fileDirection = f"{self.baseFolder}\\src\\database\\sales.json"
 
         try:
             with open(fileDirection, 'r') as archivo:

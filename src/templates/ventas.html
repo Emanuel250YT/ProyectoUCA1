@@ -44,10 +44,10 @@
 
             <div class="form-group">
               <label for="seleccionProducto">Selecciona una sucursal:</label>
-              <select class="form-control" id="seleccionProducto" name="sucursal">
-                {% for elemento in sucursales["sucursales"] %}
+              <select class="form-control" id="seleccionProducto" name="branch">
+                {% for branch in branchs["branchs"] %}
                 <tr>
-                  <option value="{{elemento.id}}">{{elemento.nombre}}</option>
+                  <option value="{{branch}}">{{branchs["branchs"][branch].name}}</option>
                 </tr>
                 {% endfor %}
 
@@ -62,7 +62,7 @@
               <label for="inputPassword6" class="col-form-label">Beneficiario</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="beneficiario" class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="inputPassword6" name="client" class="form-control" aria-describedby="passwordHelpInline">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -77,7 +77,7 @@
               <label for="inputPassword6" class="col-form-label">Productos</label>
             </div>
             <div class="col-auto">
-              <input type="text" id="inputPassword6" name="productos" class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="inputPassword6" name="products" class="form-control" aria-describedby="passwordHelpInline">
             </div>
             <div class="col-auto">
               <span id="passwordHelpInline" class="form-text">
@@ -110,19 +110,19 @@
             <!-- Sucursal 1 -->
 
 
-            {% for elemento in ventas["ventas"] %}
+            {% for sale in sales["sales"] %}
             <tr>
               <td>
-                {{ elemento.id }}
+                {{ sales["sales"][sale].id }}
               </td>
               <td>
-                {{ elemento.beneficiario }}
+                {{ sales["sales"][sale].client }}
               </td>
               <td>
-                {{ elemento.sucursal.nombre }}
+                {{ sales["sales"][sale].branch }}
               </td>
 
-              <td><a href="/facturas/{{elemento.id}}" class="btn btn-outline-primary">Descargar Factura</a></td>
+              <td><a href="/facturas/{{sale}}" class="btn btn-outline-primary">Descargar Factura</a></td>
             </tr>
             {% endfor %}
           </tbody>
