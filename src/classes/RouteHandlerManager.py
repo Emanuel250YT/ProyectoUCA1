@@ -232,7 +232,7 @@ class RouterHandlerManager():
             with open(self.informationManager.baseFolder+"/src/templates/factura.html", 'r', encoding='utf-8') as file:
                 content = file.read()
                 render = render_template_string(
-                    content, data=products, sucursales=sucursales, venta=venta, total=sum(producto["price"] for producto in venta["products"]))
+                    content, data=products, sucursales=sucursales, venta=venta, total=sum(producto["price"] * producto["amount"] for producto in venta["products"]), sucursal=sucursal)
                 pdfkit.from_string(
                     render, self.informationManager.baseFolder + "/src/static/facturas/factura-"+id+".pdf")
             return send_file(f"{self.informationManager.baseFolder}/src/static/facturas/factura-{id}.pdf", as_attachment=True)

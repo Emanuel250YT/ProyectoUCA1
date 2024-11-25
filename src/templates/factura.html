@@ -54,13 +54,13 @@
   <div class="factura">
     <div class="encabezado">
       <h1>Factura</h1>
-      <p>Fecha: {{venta.fecha}}</p>
+      <p>Fecha: {{venta.date}}</p>
     </div>
 
     <div class="cliente">
       <h2>Cliente:</h2>
-      <p>Nombre: {{venta.beneficiario}}</p>
-      <p>Sucursal: {{venta.branch.name}}</p>
+      <p>Nombre: {{venta.client}}</p>
+      <p>Sucursal: {{sucursal.name}}</p>
     </div>
 
     <div class="productos">
@@ -70,24 +70,29 @@
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Total</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio unidad</th>
           </tr>
         </thead>
         <tbody>
-          {% for elemento in venta["productos"] %}
+          {% for elemento in venta["products"] %}
           <tr>
             <td>
               {{ elemento.id }}
             </td>
             <td>
-              {{ elemento.nombre }}
+              {{ elemento.name }}
             </td>
             <td>
-              {{ elemento.descripcion }}
+              {{ elemento.description }}
+            </td>
+
+            <td>
+              {{ elemento.amount }}
             </td>
             <td>$
-              {{ elemento.precio }}
+              {{ elemento.price }}
             </td>
 
           </tr>
