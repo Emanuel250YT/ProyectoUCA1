@@ -179,8 +179,33 @@ class RouterHandlerManager():
                             maxVal = int(sales["sales"][sale]["id"])
                             newID = maxVal+1
 
-                productsToSold = self.informationManager.GetProductsInfo(request.form.get("products").split(" "), [
-                                                                         None])
+                productsWithoutType = request.form.get("products").split(" ")
+                productsToRequest = []
+
+                for product in productsWithoutType:
+                    id = product.split(":")[0] or "0"
+                    productsToRequest.append(id)
+
+                productsInDB = self.informationManager.GetProductsInfo(productsToRequest, [
+                    None])
+                productsToSold = []
+
+                for productContent in productsWithoutType:
+                    id = productContent.split(":")[0] or "0"
+                    amount = productContent.split(":")[1] or "0"
+                    for product in productsInDB["products"]:
+                        if (int(product["stock"]) >= int(amount) and int(product["id"]) == int(id)):
+                            product["stock"] = int(
+                                product["stock"]) - int(amount)
+                            product["amount"] = int(amount)
+
+                            self.informationManager.DeleteProduct(id)
+
+                            self.informationManager.CreateProduct(
+                                id, product["name"], product["description"], product["price"], product["discount"], product["category"],
+                                product["stock"], product["cost"])
+
+                            productsToSold.append(product)
 
                 details = {
                     "id": newID,
@@ -189,8 +214,6 @@ class RouterHandlerManager():
                     "branch": request.form.get("branch"),
                     "products": productsToSold
                 }
-
-                print(details)
 
                 self.informationManager.CreateSale(newID, details=details)
 

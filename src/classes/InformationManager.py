@@ -51,9 +51,10 @@ class InformationManager:
         totalIncome = 0
 
         for sale in allSales:
-            for product in allSales[sale]["products"]["products"]:
-                totalCost += int(product["cost"])
-                totalIncome += int(product["price"])
+            if (allSales[sale]["products"]):
+                for product in allSales[sale]["products"]:
+                    totalCost += int(product["cost"])
+                    totalIncome += int(product["price"])
 
         data = {
             "sales": allSales,

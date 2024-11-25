@@ -1,107 +1,143 @@
 {
     "0": {
         "id": 0,
-        "date": "22/11/24 16:24:09",
+        "date": "24/11/24 21:21:51",
         "client": "Emanuel",
         "branch": "0",
-        "products": {
-            "products": [
-                {
-                    "id": 3,
-                    "description": "4",
-                    "price": 4,
-                    "discount": 4,
-                    "stock": "4",
-                    "category": 4,
-                    "name": "4",
-                    "cost": 4,
-                    "randomUUID": 918474756
-                }
-            ],
-            "products_count": 1,
-            "no_stock": [],
-            "no_stock_count": 0
-        }
+        "products": []
     },
     "1": {
         "id": 1,
-        "date": "22/11/24 16:33:50",
+        "date": "24/11/24 21:22:21",
         "client": "Emanuel",
         "branch": "0",
-        "products": {
-            "products": [
-                {
-                    "id": 3,
-                    "description": "4",
-                    "price": 4,
-                    "discount": 4,
-                    "stock": "4",
-                    "category": 4,
-                    "name": "4",
-                    "cost": 4,
-                    "randomUUID": 555568082
-                }
-            ],
-            "products_count": 1,
-            "no_stock": [],
-            "no_stock_count": 0
-        }
+        "products": []
     },
     "2": {
         "id": 2,
-        "date": "22/11/24 16:36:19",
+        "date": "24/11/24 21:23:41",
         "client": "Emanuel",
         "branch": "0",
-        "products": {
-            "products": [
-                {
-                    "id": 3,
-                    "description": "4",
-                    "price": 4,
-                    "discount": 4,
-                    "stock": "4",
-                    "category": 4,
-                    "name": "4",
-                    "cost": 4,
-                    "randomUUID": 8110642
-                },
-                {
-                    "id": 3,
-                    "description": "4",
-                    "price": 4,
-                    "discount": 4,
-                    "stock": "4",
-                    "category": 4,
-                    "name": "4",
-                    "cost": 4,
-                    "randomUUID": 910368090
-                },
-                {
-                    "id": 3,
-                    "description": "4",
-                    "price": 4,
-                    "discount": 4,
-                    "stock": "4",
-                    "category": 4,
-                    "name": "4",
-                    "cost": 4,
-                    "randomUUID": 525929188
-                },
-                {
-                    "id": 3,
-                    "description": "4",
-                    "price": 4,
-                    "discount": 4,
-                    "stock": "4",
-                    "category": 4,
-                    "name": "4",
-                    "cost": 4,
-                    "randomUUID": 397260423
-                }
-            ],
-            "products_count": 4,
-            "no_stock": [],
-            "no_stock_count": 0
-        }
+        "products": [
+            {
+                "id": 4,
+                "description": "12",
+                "price": 12,
+                "discount": 12,
+                "stock": 10,
+                "category": 12,
+                "name": "asa",
+                "cost": 12,
+                "randomUUID": 691864432,
+                "amount": 2
+            }
+        ]
+    },
+    "3": {
+        "id": 3,
+        "date": "24/11/24 21:27:18",
+        "client": "Emanuel",
+        "branch": "0",
+        "products": [
+            {
+                "id": 4,
+                "description": "12",
+                "price": 12,
+                "discount": 12,
+                "stock": 2,
+                "category": 12,
+                "name": "asa",
+                "cost": 12,
+                "randomUUID": 165407922,
+                "amount": 10
+            }
+        ]
+    },
+    "4": {
+        "id": 4,
+        "date": "24/11/24 21:27:52",
+        "client": "Emanuel",
+        "branch": "0",
+        "products": [
+            {
+                "id": 4,
+                "description": "12",
+                "price": 12,
+                "discount": 12,
+                "stock": 2,
+                "category": 2,
+                "name": "asa",
+                "cost": 12,
+                "randomUUID": 660447499,
+                "amount": 10
+            }
+        ]
+    },
+    "5": {
+        "id": 5,
+        "date": "24/11/24 21:28:47",
+        "client": "Emanuel",
+        "branch": "0",
+        "products": []
+    },
+    "6": {
+        "id": 6,
+        "date": "24/11/24 21:29:38",
+        "client": "Emanuel",
+        "branch": "0",
+        "products": [
+            {
+                "id": 4,
+                "description": "12",
+                "price": 12,
+                "discount": 12,
+                "stock": 0,
+                "category": 10,
+                "name": "asa",
+                "cost": 12,
+                "randomUUID": 266869548,
+                "amount": 10
+            }
+        ]
+    },
+    "7": {
+        "id": 7,
+        "date": "24/11/24 21:30:15",
+        "client": "Emanuel",
+        "branch": "0",
+        "products": [
+            {
+                "id": 4,
+                "description": "12",
+                "price": 12,
+                "discount": 12,
+                "stock": 0,
+                "category": 0,
+                "name": "asa",
+                "cost": 12,
+                "randomUUID": 501888334,
+                "amount": 10
+            }
+        ]
+    },
+    "8": {
+        "id": 8,
+        "date": "24/11/24 21:30:45",
+        "client": "Emanuel",
+        "branch": "0",
+        "products": [
+            {
+                "id": 4,
+                "description": "12",
+                "price": 12,
+                "discount": 12,
+                "stock": 0,
+                "category": 0,
+                "name": "asa",
+                "cost": 12,
+                "randomUUID": 820748115,
+                "amount": 10
+            }
+        ]
     }
 }

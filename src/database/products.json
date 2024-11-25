@@ -9,16 +9,6 @@
         "name": "4",
         "cost": 4
     },
-    "4": {
-        "id": 4,
-        "description": "12",
-        "price": 12,
-        "discount": 12,
-        "stock": "12",
-        "category": 12,
-        "name": "asa",
-        "cost": 12
-    },
     "0": {
         "id": 0,
         "description": "1",
@@ -28,5 +18,15 @@
         "category": 0,
         "name": "1",
         "cost": 1
+    },
+    "4": {
+        "id": 4,
+        "description": "12",
+        "price": 12,
+        "discount": 12,
+        "stock": 0,
+        "category": 0,
+        "name": "asa",
+        "cost": 12
     }
 }
