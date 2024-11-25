@@ -223,18 +223,19 @@ class RouterHandlerManager():
         @app.route("/facturas/<id>")
         def facturas(id):
 
-            data = obtenerInformacionProductos(None, None)
-            sucursales = obtenerInformacionSucursales(None)
-            ventas = obtenerInformacionVentas(id)
-            venta = ventas["ventas"][0]
+            products = self.informationManager.GetProductsInfo(None, None)
+            sucursales = self.informationManager.GetBranchsInfo(None)
+            ventas = self.informationManager.GetSalesInfo(None)
+            venta = self.informationManager.GetSale(id)
+            sucursal = self.informationManager.GetBranch(venta["branch"])
 
-            with open("frontend/templates/factura.html", 'r', encoding='utf-8') as file:
+            with open(self.informationManager.baseFolder+"/src/templates/factura.html", 'r', encoding='utf-8') as file:
                 content = file.read()
                 render = render_template_string(
-                    content, data=data, sucursales=sucursales, venta=venta, total=sum(producto["precio"] for producto in venta["productos"]))
+                    content, data=products, sucursales=sucursales, venta=venta, total=sum(producto["price"] for producto in venta["products"]))
                 pdfkit.from_string(
-                    render, "frontend/static/facturas/factura-"+id+".pdf")
-            return send_file(f"static/facturas/factura-{id}.pdf", as_attachment=True)
+                    render, self.informationManager.baseFolder + "/src/static/facturas/factura-"+id+".pdf")
+            return send_file(f"{self.informationManager.baseFolder}/src/static/facturas/factura-{id}.pdf", as_attachment=True)
 
     def Start(self, port=80):
         self.app.run("127.0.0.1", port, debug=True)
