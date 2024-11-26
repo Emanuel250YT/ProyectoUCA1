@@ -1,32 +1,22 @@
 {
-    "3": {
-        "id": 3,
-        "description": "4",
-        "price": 4,
-        "discount": 4,
-        "stock": "4",
-        "category": 4,
-        "name": "4",
-        "cost": 4
-    },
     "0": {
         "id": 0,
-        "description": "1",
-        "price": 1,
-        "discount": 1,
-        "stock": "0",
-        "category": 0,
-        "name": "1",
-        "cost": 1
+        "description": "Ryzen 7 5700x",
+        "price": 720,
+        "discount": 20,
+        "stock": 105,
+        "category": "Procesador",
+        "name": "Ryzen 7 5700X",
+        "cost": 360
     },
-    "4": {
-        "id": 4,
-        "description": "12",
-        "price": 12,
-        "discount": 12,
-        "stock": 0,
-        "category": 0,
-        "name": "asa",
-        "cost": 12
+    "1": {
+        "id": 1,
+        "description": "RAM 8GB",
+        "price": 10,
+        "discount": 50,
+        "stock": 57,
+        "category": "RAM",
+        "name": "Memoria RAM 8GB",
+        "cost": 2
     }
 }

@@ -1,12 +1,22 @@
 {
-    "0": {
-        "id": "0",
+    "1": {
+        "id": 1,
         "products": [
             "1",
             "2",
             "3"
         ],
-        "description": "a",
-        "name": "a"
+        "description": "Salta centro",
+        "name": "Salta, Centro"
+    },
+    "2": {
+        "id": 2,
+        "products": [
+            "1",
+            "2",
+            "3"
+        ],
+        "description": "Cordoba, Capital",
+        "name": "Cordoba, Capital"
     }
 }

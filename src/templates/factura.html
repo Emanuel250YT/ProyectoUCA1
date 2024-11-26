@@ -92,7 +92,7 @@
               {{ elemento.amount }}
             </td>
             <td>$
-              {{ elemento.price }}
+              {{ elemento.price * ((100-elemento.discount)/100)  }}
             </td>
 
           </tr>

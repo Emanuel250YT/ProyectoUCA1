@@ -55,7 +55,8 @@ class InformationManager:
                 for product in allSales[sale]["products"]:
                     totalCost += int(product["cost"]) * int(product["amount"])
                     totalIncome += int(product["price"]) * \
-                        int(product["amount"])
+                        int(product["amount"]) * \
+                        ((100-product["discount"])/100)
 
         data = {
             "sales": allSales,
@@ -67,7 +68,7 @@ class InformationManager:
 
     def CreateProduct(self, newID, name, description, price, discount, category, stock, cost):
         self.databaseManager.CreateProduct(
-            newID, name, description, price, discount, category, stock, cost)
+            newID, name, description, price, discount,  stock, category, cost)
 
     def CreateBranch(self, id, details):
         return self.databaseManager.CreateBranch(id, details)

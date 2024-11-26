@@ -115,7 +115,7 @@ class RouterHandlerManager():
 
                 if (len(branchs["branchs"]) > 0):
                     maxVal = 0
-                    for branch in branchs["products"]:
+                    for branch in branchs["branchs"]:
                         if (maxVal < int(branchs["branchs"][branch]["id"])):
                             maxVal = int(branchs["branchs"][branch]["id"])
                             newID = maxVal+1
